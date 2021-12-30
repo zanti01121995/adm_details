@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
-import { FormPopComponent } from '../form-pop/form-pop.component';
+import { FormComponent } from '../form/form.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,6 +14,6 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 onadd(){
-this.dialog.open(FormPopComponent)
+this.dialog.open(FormComponent)
 }
 }

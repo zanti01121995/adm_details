@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup,Validator } from '@angular/forms';
 
 @Component({
-  selector: 'app-form-pop',
-  templateUrl: './form-pop.component.html',
-  styleUrls: ['./form-pop.component.scss']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss']
 })
-export class FormPopComponent implements OnInit {
+export class FormComponent implements OnInit {
   favoriteSeason: string = "";
 
   startDate = new Date(1990, 0, 1);

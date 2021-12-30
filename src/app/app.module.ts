@@ -5,31 +5,38 @@ import { AppRoutingModule } from './app-routing.module';
 // import { AngularFireStorageModule } from "@angular/fire/compat/storage";
 // import { AngularFireDatabaseModule } from "@angular/fire/compat/database";
 import { AppComponent } from './app.component';
-import { DataTableComponent } from './data-table/data-table.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { FormPopComponent } from './form-pop/form-pop.component';
 import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import {  environment } from '../environments/environment';
-import { ProCardComponent } from './pro-card/pro-card.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ErrorComponent } from './error/error.component';
+import { ForgotComponent } from './forgot/forgot.component';
+import { CommonModule } from '@angular/common';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DataTableComponent,
-    NavBarComponent,
-    FormPopComponent,
-    ProCardComponent
+    LogInComponent,
+    ErrorComponent,
+    ForgotComponent,
+   
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    FontAwesomeModule,
+    AppRoutingModule,
+
+    
+    
     // AngularFireModule.initializeApp(environment.firebaseConfig),
     // AngularFireStorageModule,
     // AngularFireDatabaseModule
@@ -37,6 +44,6 @@ import { ProCardComponent } from './pro-card/pro-card.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [FormPopComponent]
+  
 })
 export class AppModule { }
