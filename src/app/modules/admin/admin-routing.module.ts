@@ -14,7 +14,7 @@ children:[
   {path:'home',component:HomeComponent},
   {path:'profile',component:ProCardComponent},
   {path:'data',component:DataTableComponent},
-  {path:'',redirectTo:'/admin/home',pathMatch:'full'}
+  // {path:'',redirectTo:'/admin/home',pathMatch:'full'}
 ]
 }
 ];
