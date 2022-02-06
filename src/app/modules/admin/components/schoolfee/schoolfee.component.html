@@ -1,0 +1,296 @@
+<!-- <form [formGroup]="api.feesform"  class="normal-form" >
+    <mat-grid-list cols="2">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Name" formControlName = name>
+                    <mat-error>This field is mandatory.</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input type="text" matInput placeholder="studentid" formControlName = studentid>
+                    <mat-error>Invalid id</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input type="text"  matInput placeholder="allotedfee" formControlName = allotedfee>
+                    <mat-error>Invalid id</mat-error>
+                  </mat-form-field>
+                    </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+                    <div class="controles-container">
+                      
+                      <div formArrayName="termfee">
+                        <div class="modifier">
+                            <button type="button" (click)="addschoolfee()" class="btn btn-sm btn-warning">Add terms</button>
+                        </div>
+    
+                        <div class="form-group" *ngFor="let hobby of schoolfee; let i = index">
+                        <span>
+                          <mat-form-field style="padding-left:10px ;">
+                           <mat-label>Select</mat-label>
+                              <mat-select type="select" formControlName="type">
+                                  <mat-option value="term1">Term1</mat-option>
+                                  <mat-option value="term2">Term2</mat-option>
+                                  <mat-option value="term3">Term3</mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                          <span><mat-form-field>
+                            <input type="text"  matInput placeholder="Term Fees" formControlName = termfee>
+                            <mat-error>Invalid id</mat-error>
+                          </mat-form-field></span>
+                          </span>
+                          <span><mat-form-field color="accent" appearance="fill">
+                            <mat-label>DOA</mat-label>
+                            <input matInput matInput formControlName='paiddate' [matDatepicker]="picker1">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                          </mat-form-field></span>
+                          <span><mat-form-field>
+                            <input type="text"  matInput placeholder="Remarks" formControlName = tremarks>
+                            <mat-error>Invalid id</mat-error>
+                          </mat-form-field></span>
+                          
+                       </div>
+                        
+                    </div>
+                      <mat-form-field>
+                    <input type="text"matInput placeholder="balance" formControlName = balance>
+                    <mat-error>Invalid id</mat-error>
+                  </mat-form-field>
+                  <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit" (click)="postvalues()">Add</button>
+                    <button mat-raised-button color="secondary" (click)="updatevalue()">Update</button>
+                    <button mat-raised-button color="warn" (click)="onClose()">Close</button>
+                  </div>
+                    </div>
+         
+                  </mat-grid-tile>
+</mat-grid-list>
+    </form>
+    
+
+     -->
+
+
+     
+     <form [formGroup]="api.feesform"  class="normal-form" >
+<div id="page" class="html ui">
+
+  <div style='text-align: center' class="ui attached segment">
+   <h2> Student Fees Details Register  </h2>
+  </div>
+  <div class="ui segments">
+    <h5 class="ui top attached header">
+    Student Details
+    </h5>
+    <div class="ui attached segment">
+      <div class="ui form">
+        <div class="fields">
+          <div class="four wide field">
+            <label>Student Name</label>
+            <input type="text" matInput placeholder="Name" formControlName = name>
+          </div>
+          <div class="four wide field">
+            <label>Student Id</label>
+            <input type="text" matInput placeholder="id" formControlName = studentid>
+          </div>
+          <div class="four wide field">
+            <label>Standard</label>
+            <select type="select" placeholder="select" formControlName=standard>
+              <option value="term1">LKG</option>
+              <option value="term2">UKG</option>
+              <option value="term3">1st Standard</option>
+              <option value="term3">2st Standard</option>
+              <option value="term3">3st Standard</option>
+              <option value="term3">4st Standard</option>
+              <option value="term3">5st Standard</option>
+          </select>
+          </div>
+          <div class="four wide field">
+            <label>Alloted Fees</label>
+            <input type="text" matInput placeholder="Enter the amount to be alloted" formControlName = allotedfee>
+          </div>
+          <div class="four wide field">
+            <label>Balance Fees</label>
+            <input type="text" matInput placeholder="Enter the Balance Amount" formControlName = balance>
+          </div>
+          
+        </div>
+        
+        <div class="ui form">
+        <div class="fields">
+          <div class="four wide field">
+            <label>Trip type</label>
+            <select type="select" placeholder="select" formControlName=triptype>
+              <option value="term1">N/A</option>
+              <option value="term2">Trip1</option>
+              <option value="term3">Trip2</option>
+          </select>
+          </div>
+          <div class="four wide field">
+            <label>Boarding Point</label>
+            <input type="text" matInput placeholder="Enter the Boarding Point" formControlName = boardingpoint>
+          </div>
+          <div class="four wide field">
+            <label>Alloted Bus Fees</label>
+            <input type="text" matInput placeholder="Enter the amount to be alloted" formControlName = allotedbusfee>
+          </div>
+          <div class="four wide field">
+            <label>Selected Extra -Curricular</label>
+            <input type="text" matInput placeholder="Enter the Interest" formControlName = selectedECA>
+          </div>
+          <div class="four wide field">
+            <label>Alloted ECA Fees</label>
+            <input type="text" matInput placeholder="Enter the ECA Alloted Fees" formControlName = allotedECAfee>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+    
+
+  </div>
+  
+  <div class="ui segments">
+    <h5 class="ui top attached header">
+      School Fees Payment Details<span id="add"> 
+       <button type="button" (click)="addschoolfee()" class="btn btn-sm btn-warning">Add terms</button>
+   </span>
+    </h5> 
+    <div class="ui attached segment" >
+      <div class="ui form">
+        <div class="fields" *ngFor="let hobby of schoolfee; let i = index">
+          <div class="four wide field">
+            <label>Select Term</label>
+            <select type="select" formControlName=type>
+              <option value="term1">Term1</option>
+              <option value="term2">Term2</option>
+              <option value="term3">Term3</option>
+            </select>
+          </div>
+          <div class="four wide field">
+            <label>Term Fees</label>
+            <input type="text"  matInput placeholder="Enter Term Fees" formControlName = termfee>
+          </div>
+          
+          <div class="four wide field">
+            <label>Input #4</label>
+            <input type="date" name="dateofbirth" formControlName = tpaiddate>
+          </div>
+          <div class="four wide field">
+            <label>Remarks</label>
+            <input type="text"  matInput placeholder="Remarks" formControlName = tremarks>
+          </div>
+          <div class="four wide field">
+            <label>Generate Bill</label>
+            <button class="btn btn-sm btn-success" >Show Bill</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="ui segments">
+    <h5 class="ui top attached header">
+      Bus Fees Payment Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="add"> 
+       <button type="button" (click)="addbusfee()" class="btn btn-sm btn-warning">Add terms</button>
+   </span>
+    </h5> 
+    <div class="ui attached segment" >
+      <div class="ui form">
+        <div class="fields" *ngFor="let hobby of busfees; let i = index">
+          <div class="four wide field">
+            <label>Select Select Month</label>
+            <select type="select" formControlName=monthtype>
+              <option value="January">January</option>
+              <option value="Februry">Februry</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+          </div>
+          <div class="four wide field">
+            <label>Monthly Fees Amount</label>
+            <input type="text"  matInput placeholder="Enter Bus fees" formControlName = monthfee>
+          </div>
+          
+          <div class="four wide field">
+            <label>Paid date</label>
+            <input type="date" name="dateofbirth" formControlName = mpaiddate>
+          </div>
+
+          <div class="four wide field">
+            <label>Remarks</label>
+            <input type="text"  matInput placeholder="Remarks" formControlName = mremarks>
+          </div>
+          <div class="four wide field">
+            <label>Generate Bill</label>
+            <button class="btn btn-sm btn-success" >Show Bill</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="ui segments">
+    <h5 class="ui top attached header">
+      Others Fees Payment Details<span id="add"> 
+       <button type="button" (click)="otherfee()" class="btn btn-sm btn-warning">Add terms</button>
+   </span>
+    </h5> 
+    <div class="ui attached segment" >
+      <div class="ui form">
+        <div class="fields" *ngFor="let hobby of otherfees; let i = index">
+          <div class="four wide field">
+            <label>Select Select Month</label>
+            <select type="select" formControlName=omonthtype>
+              <option value="January">January</option>
+              <option value="Februry">Februry</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+          </div>
+          <div class="four wide field">
+            <label>Monthly Fees</label>
+            <input type="text"  matInput placeholder="Enter Term Fees" formControlName = omonthfee>
+          </div>
+          
+          <div class="four wide field">
+            <label>Paid date</label>
+            <input type="date" name="dateofbirth" formControlName = opaiddate>
+          </div>
+          <div class="four wide field">
+            <label>Remarks</label>
+            <input type="text"  matInput placeholder="Remarks" formControlName = oremarks>
+          </div>
+          <div class="four wide field">
+            <label>Generate Bill</label>
+            <button class="btn btn-sm btn-success" >Show Bill</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="button-row" style="padding:20px">
+  <button mat-raised-button color="primary" type="submit" (click)="postvalues()">Add</button>
+  <button mat-raised-button color="secondary" (click)="updatevalue()">Update</button>
+  <button mat-raised-button color="warn" (click)="onClose()">Close</button>
+</div>
+</form>

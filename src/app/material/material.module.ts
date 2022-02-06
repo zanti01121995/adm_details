@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AppRoutingModule } from '../app-routing.module';
+
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,7 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [],
@@ -24,28 +24,7 @@ import {MatCardModule} from '@angular/material/card';
     CommonModule,
     MatToolbarModule,
     MatDialogModule,
-    AppRoutingModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatIconModule,
-    LayoutModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatCardModule
     
-    
-  ],
-  exports: [
-    MatToolbarModule,
-    MatDialogModule,
-    AppRoutingModule,
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
@@ -60,6 +39,29 @@ import {MatCardModule} from '@angular/material/card';
     MatRadioModule,
     MatSelectModule,
     MatCardModule,
+    MatGridListModule
+  
+    
+    
+  ],
+  exports: [
+    MatToolbarModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    LayoutModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatCardModule,
+    MatGridListModule
     
     
   ]

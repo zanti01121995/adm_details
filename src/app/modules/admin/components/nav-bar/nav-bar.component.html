@@ -1,11 +1,13 @@
 
-<p>
+
     <mat-toolbar class="nav" color="primary">
       <span>School Name</span>
       <div class="tools"></div>
-        <button mat-button>Home</button>
-      <button mat-button ><mat-icon>add</mat-icon>Admission</button>
-      <button mat-button>Student details</button>
+        <button routerLink="./home" mat-button>Home</button>
+      <button routerLink="./form" mat-button ><mat-icon>add</mat-icon>Admission</button>
+      <button routerLink="./data" mat-button>Student details</button>
+      <button  mat-button (click)="onclick()">Logout</button>
+
     </mat-toolbar>
-  </p>
+
   

@@ -6,34 +6,35 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface DataTableItem {
-  name: string;
-  id: number;
-  stdid: number;
-  dob: any;
+ 
+  firstname: string;
+  studid:string;
+  DOB: string;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: DataTableItem[] = [
-  {id: 1, name: 'Hydrogen',stdid:123,dob: '10-feb-2000'},
-  {id: 2, name: 'Helium',stdid:123,dob: '10-feb-2000'},
-  {id: 3, name: 'Lithium',stdid:123,dob: '10-feb-2000'},
-  {id: 4, name: 'Beryllium',stdid:123,dob: '10-feb-2000'},
-  {id: 5, name: 'Boron',stdid:123,dob: '10-feb-2000'},
-  {id: 6, name: 'Carbon',stdid:123,dob: '10-feb-2000'},
-  {id: 7, name: 'Nitrogen',stdid:123,dob: '10-feb-2000'},
-  {id: 8, name: 'Oxygen',stdid:123,dob: '10-feb-2000'},
-  {id: 9, name: 'Fluorine',stdid:123,dob: '10-feb-2000'},
-  {id: 10, name: 'Neon',stdid:123,dob: '10-feb-2000'},
-  {id: 11, name: 'Sodium',stdid:123,dob: '10-feb-2000'},
-  {id: 12, name: 'Magnesium',stdid:123,dob: '10-feb-2000'},
-  {id: 13, name: 'Aluminum',stdid:123,dob: '10-feb-2000'},
-  {id: 14, name: 'Silicon',stdid:123,dob: '10-feb-2000'},
-  {id: 15, name: 'Phosphorus',stdid:123,dob: '10-feb-2000'},
-  {id: 16, name: 'Sulfur',stdid:123,dob: '10-feb-2000'},
-  {id: 17, name: 'Chlorine',stdid:123,dob: '10-feb-2000'},
-  {id: 18, name: 'Argon',stdid:123,dob: '10-feb-2000'},
-  {id: 19, name: 'Potassium',stdid:123,dob: '10-feb-2000'},
-  {id: 20, name: 'Calcium',stdid:123,dob: '10-feb-2000'},
+  
+  // {id: 1, name: 'Hydrogen'},
+  // {id: 2, name: 'Helium'},
+  // {id: 3, name: 'Lithium'},
+  // {id: 4, name: 'Beryllium'},
+  // {id: 5, name: 'Boron'},
+  // {id: 6, name: 'Carbon'},
+  // {id: 7, name: 'Nitrogen'},
+  // {id: 8, name: 'Oxygen'},
+  // {id: 9, name: 'Fluorine'},
+  // {id: 10, name: 'Neon'},
+  // {id: 11, name: 'Sodium'},
+  // {id: 12, name: 'Magnesium'},
+  // {id: 13, name: 'Aluminum'},
+  // {id: 14, name: 'Silicon'},
+  // {id: 15, name: 'Phosphorus'},
+  // {id: 16, name: 'Sulfur'},
+  // {id: 17, name: 'Chlorine'},
+  // {id: 18, name: 'Argon'},
+  // {id: 19, name: 'Potassium'},
+  // {id: 20, name: 'Calcium'},
 ];
 
 /**
@@ -45,6 +46,7 @@ export class DataTableDataSource extends DataSource<DataTableItem> {
   data: DataTableItem[] = EXAMPLE_DATA;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
+  
 
   constructor() {
     super();
@@ -99,10 +101,10 @@ export class DataTableDataSource extends DataSource<DataTableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'stdid': return compare(+a.stdid, +b.stdid, isAsc)
-        case 'id': return compare(+a.id, +b.id, isAsc);
-        case 'dob': return compare(+a.dob, +b.dob, isAsc);
+        case 'firstname': return compare(a.firstname, b.firstname, isAsc);
+        case 'DOB': return compare(a.DOB, b.DOB, isAsc);
+        // case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'studid': return compare(+a.studid, +b.studid, isAsc);
         default: return 0;
       }
     });

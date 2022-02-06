@@ -1,4 +1,4 @@
-<form [formGroup] = "admform" (ngSubmit)="onclick()">
+<form [formGroup] = "api.admform" (ngSubmit)="onclick()">
     <div class="parent" >
         
          <div class="main-child">
@@ -7,7 +7,7 @@
         <p>
            * Please fill all the required details
        </p></div></div>
-    
+       <input type="hidden" value=null formControlName="$key">
        <div class="main-child2 name">
             <div id="heading">Student Name<span aria-label="Required">*</span></div>
        <table class="example-full-width" cellspacing="0"><tr>
@@ -24,11 +24,22 @@
            <div id="heading">Date of Birth
            <span aria-label="Required">*</span>
            </div>
-           <mat-form-field   style="padding-left: 10px" appearance="fill">
+           <!-- <mat-form-field    appearance="fill">
             <mat-label>Choose a date</mat-label>
-            <input matInput type="text" formControlName='DOB'  [matDatepicker]="picker">
+            <input matInput type="number" formControlName='DOB'  [matDatepicker]="picker">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field> -->
+          <mat-form-field   appearance="fill" style="padding-left: 10px" class="example-form-field">
+            <mat-label>Choose a date</mat-label>
+            <input matInput  formControlName='DOB' [matDatepicker]="datepicker">
+            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
           </mat-form-field>
     
          </div>
@@ -48,7 +59,7 @@
        <div class="main-child2 number1"><div id="heading">Student's Adhaar Number<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Enter Student's Adhaar</mat-label>
-        <input type="text" formControlName="sadhaar" matInput>
+        <input type="number" formControlName="sadhaar" matInput>
       </mat-form-field></div>
        <div class="main-child2 name"><div id="heading">Father's Name<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
@@ -71,22 +82,24 @@
        <div class="main-child2 number1"><div id="heading">Parent's/Guardian's Adhaar Number<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Enter Parent/Guardian's Adhaar</mat-label>
-        <input type="text" formControlName="padhaar" matInput>
+        <input type="number" formControlName="padhaar" matInput>
       </mat-form-field>
     </div>
        <div class="main-child2 number2"><div id="heading">Contact Number(Parents)<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Enter Contact No</mat-label>
-        <input type="text" formControlName="contact" matInput>
+        <input type="number" formControlName="contact" matInput>
       </mat-form-field>
     </div>
-       <div class="main-child2 date"><div id="heading">Date on Admission<span aria-label="Required">*</span></div>
-       <mat-form-field style="padding-left : 10px ;" appearance="fill">
-        <mat-label>Choose a date</mat-label>
-        <input type="text" formControlName="DOA" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+       <div class="main-child2 date" style="padding-left:10px" ><div id="heading">Date on Admission<span aria-label="Required">*</span></div>
+       <mat-form-field color="accent" appearance="fill">
+        <mat-label>DOA</mat-label>
+        <input matInput matInput formControlName='DOA' [matDatepicker]="picker1">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
+      
+      
     </div>
        
        <div class="main-child2 mail"><div id="heading">Email<span aria-label="Required">*</span></div>
@@ -95,7 +108,7 @@
         <input  type="text" formControlName="email" matInput placeholder="pat@example.com"  required>
     </mat-form-field>
         </div>
-       <div class="main-child2 radio1" style="height: 260px;"><div id="heading">Standard of Admission<span aria-label="Required">*</span></div>
+       <div class="main-child2 radio1" style="height: 300px"><div id="heading">Standard of Admission<span aria-label="Required">*</span></div>
        <mat-radio-group class="select"type="select" formControlName="SOA" aria-label="Select an option">
         <mat-radio-button value="LKG" style="padding-left:20px;padding-top: 10px;">LKG</mat-radio-button>
         <mat-radio-button value="UKG" style="padding-left:20px;padding-top: 10px;">UKG</mat-radio-button>
@@ -106,7 +119,7 @@
         <mat-radio-button value="5st Standard" style="padding-left:20px;padding-top: 10px;">V</mat-radio-button>
       </mat-radio-group>
     </div>
-       <div class="main-child2 radio2" style="height: 110px;"><div id="heading">Nationality<span aria-label="Required">*</span></div>
+       <div class="main-child2 radio2" style="height: 120px;"><div id="heading">Nationality<span aria-label="Required">*</span></div>
        <mat-radio-group class="select" type="select" formControlName="nation" aria-label="Select an option">
         <mat-radio-button value="Indian" style="padding-left:20px;padding-top: 10px;">Indian</mat-radio-button>
         <mat-radio-button value="others" style="padding-left:20px;padding-top: 10px;">Others</mat-radio-button>
@@ -155,19 +168,25 @@
         <mat-label>Input</mat-label>
         <input type="text" formControlName="extra" matInput>
       </mat-form-field></div>
-       <div class="main-child2 upload"><div id="heading">Upload the Photo of the Student<span aria-label="Required">*</span></div>
-       <input style = "padding-left: 10px; color: rgb(156, 75, 231);" class="ng-hide" id="input-file-id" multiple type="file" />
-      
+      <div class="main-child2 number"><div id="heading">Generate Student ID<span aria-label="Required">*</span></div>
+      <mat-form-field  style="padding-left: 10px;padding-bottom: 5px " appearance="fill">
+       <mat-label>Input</mat-label>
+       <input type="text" formControlName="studid" matInput>
+     </mat-form-field></div>
+       <div class="main-child2 upload" style="Height: 120px"><div id="heading">Upload the Photo of the Student<span aria-label="Required">*</span></div>
+       <input (change)="upload($event)" accept="*.png.jpg" style = "padding-left: 10px; color: rgb(156, 75, 231);" class="ng-hide" id="input-file-id" multiple type="file" />
+      <button mat-flat-button color="primary"(click)="uploadFile()">upload image
+      </button>
+      <div>{{ uploadPercent | async }}</div>
+    <!-- <a  [href]="downloadURL | async" >{{ downloadURL | async }}</a> -->
+  
       </div>
-       <div class="main-child2 number"><div id="heading">Generate Student ID<span aria-label="Required">*</span></div>
-       <mat-form-field  style="padding-left: 10px;padding-bottom: 5px " appearance="fill">
-        <mat-label>Input</mat-label>
-        <input type="text" formControlName="studid" matInput>
-      </mat-form-field></div>
+      
       <div class="example-button-row">
         
-          <button  mat-flat-button color="primary">Submit</button>
-          
+          <button  mat-flat-button color="primary" type="submit" [disabled]="!this.api.admform.valid"   >Submit</button>
+          <!-- disabled="!admform.valid" -->
+          <!-- (click)="poststudentdetails()" -->
           <button mat-stroked-button color="warn">Clear</button>
         </div>
     </div>

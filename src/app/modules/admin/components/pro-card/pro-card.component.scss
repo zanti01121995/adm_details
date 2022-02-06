@@ -21,7 +21,7 @@
 .img-container{
     display: flex;
     justify-content: center;
-    width: 20%;
+    width: 30%;
     height: 100%;
     background-color: rgb(183, 199, 228);
     position:absolute;
@@ -30,7 +30,7 @@
 }
 img{    
     width: 80%;
-    height: 60vh;
+    height: 55vh;
     position:absolute;
     top: 10px;
     object-fit: cover;
@@ -48,16 +48,16 @@ img{
 .profile-container{
     display: flex;
     justify-content: center;
-    width: 40%;
+    width: 35%;
     height:100%;
     position: absolute;
-    left: 21%;
+    left: 27%;
     
 }
 .other-container{
     display: flex;
     justify-content: center;
-    width: 40%;
+    width: 35%;
     height:100%;
     position: absolute;
     left: 60%;

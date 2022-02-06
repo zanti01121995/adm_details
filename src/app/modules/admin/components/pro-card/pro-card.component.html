@@ -1,26 +1,26 @@
 <div class="main">
     <div class="card">
         <div class="img-container">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Virat_Kohli.jpg" />
+            <img src={{mydata.imagelink}}  />
             <div class="text">
-                <h1>{{name}}</h1>
-                <h2>{{studentid}}</h2>
-                <h3>{{DOB}}</h3>
-                <h3>{{bloodbroup}}</h3>
+                <h1>{{mydata.firstname}}&nbsp;&nbsp;{{mydata.lastname}}</h1>
+                <h2>{{mydata.studid}}</h2>
+                <h3>{{mydata.DOB}}</h3>
+                <h3>{{mydata.bloodbroup}}</h3>
             </div>
         </div>
         <div class="profile-container">
             <h2>Personal Details</h2>
             <div class="detail">
             <ul>
-                <li>Gender : {{gender}}</li>
-                <li>Father Name : {{father}}</li>
-                <li>Mother Name : {{mother}}</li>
-                <li>Student's Adhaar : {{sadhaar}}</li>
-                <li>Parent's Adhaar : {{padhaar}}</li>
-                <li>Contact Number : {{contact}}</li>
-                <li>Email : {{mail}}</li>
-                <li>Guardian's Name : {{guard}}</li>
+                <li>Gender : {{mydata.gender}}</li>
+                <li>Father Name : {{mydata.father}}</li>
+                <li>Mother Name : {{mydata.mother}}</li>
+                <li>Student's Adhaar : {{mydata.sadhaar}}</li>
+                <li>Parent's Adhaar : {{mydata.padhaar}}</li>
+                <li>Contact Number : {{mydata.contact}}</li>
+                <li>Email : {{mydata.email}}</li>
+                <li>Guardian's Name : {{mydata.guardian}}</li>
                
             </ul>
         </div>
@@ -30,15 +30,15 @@
             <h2>Other Details</h2>
             <div class="detail">
                 <ul>
-                    <li>Date of Admission : {{DOA}}</li>
-                    <li>Standard of Admission : {{SOA}}</li>
-                    <li>Nationality : {{nation}}</li>
-                    <li>Religion : {{religion}}</li>
-                    <li>Community : {{community}}</li>
-                    <li>Sub-Caste : {{caste}}</li>
-                    <li>Address: {{address}}</li>
-                    <li>Pincode: {{pin}}</li>
-                    <li>If, Extra Curricular/Area of Spl. interest.: {{extra}}</li>
+                    <li>Date of Admission : {{mydata.DOA}}</li>
+                    <li>Standard of Admission : {{mydata.SOA}}</li>
+                    <li>Nationality : {{mydata.nation}}</li>
+                    <li>Religion : {{mydata.religion}}</li>
+                    <li>Community : {{mydata.community}}</li>
+                    <li>Sub-Caste : {{mydata.caste}}</li>
+                    <li>Address: {{mydata.address}}</li>
+                    <li>Pincode: {{mydata.pin}}</li>
+                    <li>If, Extra Curricular/Area of Spl. interest.: {{mydata.extra}}</li>
                    
                 </ul>
         </div>
