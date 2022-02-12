@@ -1,0 +1,39 @@
+{
+  "posts": [
+    
+    {
+      "name": "kjbjhb",
+      "studentid": "64",
+      "standard": "term1",
+      "allotedfee": "10000",
+      "balance": "",
+      "triptype": "",
+      "allotedbusfee": "",
+      "boardingpoint": "",
+      "selectedECA": "",
+      "allotedECAfee": "",
+      "termfees": [
+        {
+          "type": "term2",
+          "termfee": "200",
+          "tpaiddate": "2001-01-01",
+          "tremarks": "jn"
+        },
+        {
+          "type": "term1",
+          "termfee": "700",
+          "tpaiddate": "2002-01-22",
+          "tremarks": "lk lk "
+        }
+      ],
+      "busfee": [],
+      "otherfee": [],
+      "totalTermFeesPaid": 900,
+      "id": 15
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}

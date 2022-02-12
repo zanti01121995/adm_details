@@ -25,5 +25,6 @@ export class schoolfee{
     tremarks:string='';
     mremarks:string='';
     oremarks:string='';
+    totalTermFeesPaid: Number = 0;
 
 }
