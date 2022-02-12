@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject,map } from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -18,10 +18,12 @@ import { schoolfee } from '../schoolfee/schoolfee.model';
 export class Feestable1Component implements OnInit {
   myobj:schoolfee =new schoolfee();
   mydata:any;
+ balance:number=0;
+ 
   values= new BehaviorSubject<any>({})
   // column =["id","name","studentid","allotedfee","term1","term2","term3","balance","actions"];
   // index = ["id","name","studentid","allotedfee","term1","term2","term3","balance"];
-  displayedColumns: string[] = ["name","studentid","allotedfee","term1","term2","term3","balance","actions"];
+  displayedColumns: string[] = ["studentid","name","allotedfee","balance","actions"];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -34,8 +36,10 @@ export class Feestable1Component implements OnInit {
       this.values.subscribe(data=>{
          this.changevalue(data)
       })
+this.getTotalCost();
     
-   
+    
+
   }
   displayvalues(){
     this.api.getvalue().subscribe({
@@ -46,6 +50,13 @@ export class Feestable1Component implements OnInit {
     }  
     })
   }
+  getTotalCost() {
+    this.api.getvalue().subscribe(data=>{
+     this.balance=data.map(t => t.termfee*1).reduce((acc, value) => acc + value, 0);
+     console.log(this.balance)
+    })
+  }
+  
   clickedit(row:any){
 
     this.values.next(row)
@@ -56,9 +67,6 @@ export class Feestable1Component implements OnInit {
     this.api.feesform.controls['name'].setValue(dat.name);
     this.api.feesform.controls['studentid'].setValue(dat.studentid);
     this.api.feesform.controls['allotedfee'].setValue(dat.allotedfee);
-    this.api.feesform.controls['term1'].setValue(dat.term1);
-    this.api.feesform.controls['term2'].setValue(dat.term2);
-    this.api.feesform.controls['term3'].setValue(dat.term3);
     this.api.feesform.controls['balance'].setValue(dat.balance);
   }
  

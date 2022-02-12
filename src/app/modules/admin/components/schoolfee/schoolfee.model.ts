@@ -16,7 +16,7 @@ export class schoolfee{
     type:string='';
     monthtype:string='';
     omonthtype:string='';
-    termfee:string='';
+    termfee:number=0;
     monthfee:string='';
     omonthfee:string='';
     tpaiddate:string='';

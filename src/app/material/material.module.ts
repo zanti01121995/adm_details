@@ -17,6 +17,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [],
@@ -24,7 +25,6 @@ import {MatGridListModule} from '@angular/material/grid-list';
     CommonModule,
     MatToolbarModule,
     MatDialogModule,
-    
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,

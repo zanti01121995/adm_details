@@ -12,6 +12,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SchoolfeeComponent } from './components/schoolfee/schoolfee.component';
+import { Feestable1Component } from './components/feestable1/feestable1.component';
 
 
 
@@ -23,7 +24,8 @@ import { SchoolfeeComponent } from './components/schoolfee/schoolfee.component';
     HomeComponent,
     NavBarComponent,
     ProCardComponent,
-    SchoolfeeComponent
+    SchoolfeeComponent,
+    Feestable1Component
    
 
   ],

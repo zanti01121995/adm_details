@@ -28,15 +28,7 @@ export class FeesService {
     selectedECA:new FormControl(''),
     allotedECAfee:new FormControl(''),
 
-    termfees:new FormArray([
-        
-        // new FormGroup({
-        //             type:new FormControl(''),
-        //             termfee:new FormControl(''),
-        //             tpaiddate:new FormControl(''),
-        //             tremarks:new FormControl('')
-        //      })
-        ]), 
+    termfees:new FormArray([]), 
     busfee:new FormArray([]),
     otherfee:new FormArray([]),
         
