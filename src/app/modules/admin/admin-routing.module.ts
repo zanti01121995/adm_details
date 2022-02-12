@@ -20,6 +20,7 @@ children:[
  {path:'schoolfee',component:SchoolfeeComponent},
   {path:'feestable1',component:Feestable1Component},
   {path:'',redirectTo:'/admin/home',pathMatch:'full'}
+  // {path:'',redirectTo:'/admin/home',pathMatch:'full'}
 ]
 }
 ];
