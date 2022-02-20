@@ -25,6 +25,10 @@ import { DataTableComponent } from './modules/admin/components/data-table/data-t
 import { DatePipe } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { FeesService } from './services/fees.service';
+
+
+
+
 // import { SchoolfeeComponent } from './modules/admin/components/schoolfee/schoolfee.component';
 
 
@@ -43,6 +47,10 @@ import { FeesService } from './services/fees.service';
     ErrorComponent,
     ForgotComponent,
     DataTableComponent,
+  
+   
+  
+  
 
     
    

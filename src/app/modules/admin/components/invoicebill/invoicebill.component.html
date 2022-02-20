@@ -1,0 +1,77 @@
+
+<div class="invoice">
+    <div class="invoice-logo">
+      <img src="https://placeimg.com/640/480/arch/any" alt="">
+    </div>
+    <div class="invoice-sec-1">
+      <div class="invoice-sec-1-ref">
+        <div class="ref-no">
+         <strong><i>Savithri vidhyalaya Nursery & primary - Lalgudi</i></strong> 
+          <p><strong>Bill No #</strong></p>
+        </div>
+        <div class="to-invoice">
+            <tr>
+                <td class="pull-right"><strong>Student Name #</strong></td>
+                <td>{{stud.name}}</td>
+            </tr>
+            <tr>
+                <td class="pull-right"><strong>Student ID #</strong></td>
+                <td>{{stud.studentid}}</td>
+            </tr>
+            <tr>
+                <td class="pull-right"><strong>Standard #</strong></td>
+                <td>{{stud.standard}}</td>
+            </tr>
+       
+        </div>
+      </div>
+      <div class="invoice-sec-1-date">
+      <p>   <strong>Date:</strong>  <span>{{date}}</span></p>
+      </div>
+    </div>
+    <div class="invoice-banner">
+      <div class="banner-d">
+        <p>Fees Patriculars</p>
+      </div>
+    </div>
+    <div class="invoice-table">
+      <div class="invoice-table-container">
+        <div class="invoice-table-data">
+          <div class="invoice-table-sl invoice-table-sl-h">
+            <strong> <p>Sl. No</p></strong>
+          </div>
+          <div class="invoice-table-desc invoice-table-desc-h">
+            <strong><p>Description</p></strong>
+          </div>
+          <div class="invoice-table-amount invoice-table-amount-h">
+            <strong><p>Amount</p></strong>
+          </div>
+        </div>
+        <div class="invoice-table-data">
+          <div class="invoice-table-sl">
+            <p>01</p>
+          </div>
+          <div class="invoice-table-desc">
+            <p>{{description}}</p>
+          </div>
+          <div class="invoice-table-amount">
+            <p>{{amount}}</p>
+          </div>
+        </div>
+        <div class="invoice-table-footer">
+          <div class="invoice-total">
+            <p>Total</p>
+          </div>
+          <div class="invoice-total-amount">
+            <p>{{amount}}</p>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    
+    <div class="invoice-greeting">
+      
+    </div>
+  </div>
+  

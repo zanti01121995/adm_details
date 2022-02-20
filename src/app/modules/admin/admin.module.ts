@@ -10,9 +10,11 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ProCardComponent } from './components/pro-card/pro-card.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchoolfeeComponent } from './components/schoolfee/schoolfee.component';
 import { Feestable1Component } from './components/feestable1/feestable1.component';
+import { UpdateComponent } from './components/update/update.component';
+import { InvoicebillComponent } from './components/invoicebill/invoicebill.component';
 
 
 
@@ -21,11 +23,14 @@ import { Feestable1Component } from './components/feestable1/feestable1.componen
     DashBoardComponent,
     // DataTableComponent,
     FormComponent,
+
     HomeComponent,
     NavBarComponent,
     ProCardComponent,
     SchoolfeeComponent,
-    Feestable1Component
+    Feestable1Component,
+    UpdateComponent,
+    InvoicebillComponent
    
 
   ],
@@ -34,8 +39,8 @@ import { Feestable1Component } from './components/feestable1/feestable1.componen
     AdminRoutingModule,
     MaterialModule,
     FontAwesomeModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    FormsModule
     
   ]
 })

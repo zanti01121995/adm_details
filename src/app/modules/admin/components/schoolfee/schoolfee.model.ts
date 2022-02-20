@@ -7,7 +7,9 @@ export class schoolfee{
     busfee:string='';
     otherfee:string=''
     allotedfee:string =''; 
-    balance:string ='';
+    balance:number = 0;
+    balance2:number = 0;
+    balance3:number = 0;
     triptype:string='';
     allotedbusfee:string='';
     boardingpoint:string='';
@@ -26,5 +28,7 @@ export class schoolfee{
     mremarks:string='';
     oremarks:string='';
     totalTermFeesPaid: Number = 0;
-
+    totalBusFeesPaid: Number = 0;
+    totalOtherFeesPaid: Number = 0;
+    billvalues:[]=[];
 }
