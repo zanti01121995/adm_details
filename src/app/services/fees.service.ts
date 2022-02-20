@@ -18,6 +18,8 @@ export class FeesService {
   term = new BehaviorSubject<boolean>(false);
   bus = new BehaviorSubject<boolean>(false);
   other = new BehaviorSubject<boolean>(false);
+
+  commonBill = new BehaviorSubject<any>({});
  constructor(private http:HttpClient){
 
   }

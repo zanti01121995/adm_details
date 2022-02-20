@@ -1,8 +1,8 @@
 {
   "posts": [
-    
     {
       "name": "kjbjhb",
+      "id": 15,
       "studentid": "64",
       "standard": "term1",
       "allotedfee": "10000",
@@ -27,9 +27,50 @@
         }
       ],
       "busfee": [],
-      "otherfee": [],
-      "totalTermFeesPaid": 900,
-      "id": 15
+      "otherfee": []
+    },
+    {
+      "name": "dbdber",
+      "id": 16,
+      "studentid": "123",
+      "standard": "LKG",
+      "allotedfee": "789",
+      "balance": 576,
+      "triptype": "Trip1",
+      "allotedbusfee": "876",
+      "boardingpoint": "bjjlbb",
+      "selectedECA": "",
+      "allotedECAfee": "",
+      "termfees": [
+        {
+          "type": "term1",
+          "termfee": "213",
+          "tpaiddate": "2022-02-14",
+          "tremarks": ""
+        }
+      ],
+      "busfee": [
+        {
+          "monthtype": "October",
+          "monthfee": "12",
+          "mpaiddate": "2022-02-01",
+          "mremarks": ""
+        },
+        {
+          "monthtype": "November",
+          "monthfee": "456",
+          "mpaiddate": "2022-02-09",
+          "mremarks": ""
+        }
+      ],
+      "otherfee": [
+        {
+          "omonthtype": "October",
+          "omonthfee": "123",
+          "opaiddate": "2022-02-21",
+          "oremarks": ""
+        }
+      ]
     }
   ],
   "comments": [],

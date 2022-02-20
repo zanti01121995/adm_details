@@ -25,6 +25,7 @@ export class UpdateComponent implements OnInit {
   // public dialogRef: MatDialogRef<Feestable1Component>
   feesform:FormGroup = new FormGroup({
     name: new FormControl(''),
+    id: new FormControl(''),
     studentid: new FormControl(''),
     standard:new FormControl(''),
     allotedfee:new FormControl(''),
@@ -58,7 +59,11 @@ export class UpdateComponent implements OnInit {
   
    this.api.values.subscribe(data=>{
     this.var = data.termfees[i];
-    this.api.billvalues.next(this.var);
+    this.api.commonBill.next({
+      description: this.var.type,
+      amount:this.var.termfee,
+      date: this.var.tpaiddate
+    });
     this.api.term.next(true);
      })   
      this.router.navigate(['./admin/invoice'])  
@@ -68,7 +73,11 @@ export class UpdateComponent implements OnInit {
       // this.router.navigate(['./admin/invoice/'+i])
        this.api.values.subscribe(data=>{
         this.var = data.busfee[i];
-        this.api.billvalues.next(this.var)
+        this.api.commonBill.next({
+          description: this.var.monthtype,
+          amount:this.var.monthfee,
+          date: this.var.mpaiddate
+        })
         this.api.bus.next(true);
          })
          this.router.navigate(['./admin/invoice'])       
@@ -78,7 +87,11 @@ export class UpdateComponent implements OnInit {
           // this.router.navigate(['./admin/invoice/'+i])
            this.api.values.subscribe(data=>{
             this.var = data.otherfee[i];
-            this.api.billvalues.next(this.var)
+            this.api.commonBill.next({
+              description: this.var.omonthtype,
+              amount:this.var.omonthfee,
+              date: this.var.opaiddate
+            })
             this.api.other.next(true);
              })  
              this.router.navigate(['./admin/invoice'])     
@@ -141,7 +154,7 @@ export class UpdateComponent implements OnInit {
                     omonthtype:new FormControl(''),
                     omonthfee:new FormControl(''),
                     opaiddate:new FormControl(''),
-                    oremarks:new FormControl('')
+                    oremarks:new FormControl(''
              });
       (<FormArray>this.feesform.get('otherfee')).push(control2);
     }
@@ -198,17 +211,18 @@ export class UpdateComponent implements OnInit {
 
   changevalue(dat:any){
     this.myobj.id = dat.id;
-   
-    this.feesform.controls['name'].setValue(dat.name);
-    this.feesform.controls['standard'].setValue(dat.standard);
-    this.feesform.controls['studentid'].setValue(dat.studentid);
-    this.feesform.controls['balance'].setValue(dat.balance);
-    this.feesform.controls['allotedfee'].setValue(dat.allotedfee);
-    this.feesform.controls['triptype'].setValue(dat.triptype);
-    this.feesform.controls['allotedbusfee'].setValue(dat.allotedbusfee);
-    this.feesform.controls['boardingpoint'].setValue(dat.boardingpoint);
-    this.feesform.controls['selectedECA'].setValue(dat.selectedECA);
-    this.feesform.controls['allotedECAfee'].setValue(dat.allotedECAfee);
+    this.feesform.patchValue({...dat})
+    // this.feesform.controls['id'].setValue(dat.id);
+    // this.feesform.controls['name'].setValue(dat.name);
+    // this.feesform.controls['standard'].setValue(dat.standard);
+    // this.feesform.controls['studentid'].setValue(dat.studentid);
+    // this.feesform.controls['balance'].setValue(dat.balance);
+    // this.feesform.controls['allotedfee'].setValue(dat.allotedfee);
+    // this.feesform.controls['triptype'].setValue(dat.triptype);
+    // this.feesform.controls['allotedbusfee'].setValue(dat.allotedbusfee);
+    // this.feesform.controls['boardingpoint'].setValue(dat.boardingpoint);
+    // this.feesform.controls['selectedECA'].setValue(dat.selectedECA);
+    // this.feesform.controls['allotedECAfee'].setValue(dat.allotedECAfee);
     this.feesform.setControl('termfees',this.setexistterm(dat.termfees));
     this.feesform.setControl('busfee',this.setexistbus(dat.busfee));
     this.feesform.setControl('otherfee',this.setexistother(dat.otherfee));
@@ -216,8 +230,9 @@ export class UpdateComponent implements OnInit {
   }
 
   updatevalue(){
-   console.log(this.myobj.id)
-     this.myobj = this.feesform.value;
+    this.myobj = this.feesform.value;
+    console.log(this.myobj.id)
+    console.log(this.feesform.value);
      
      this.api.editvalue(this.myobj,this.myobj.id).subscribe(data=>{
        console.log(data)
@@ -234,10 +249,7 @@ const formarray = new FormArray([]);
 // console.log(term)
 term.forEach((d:any)=>{
   formarray.push(this.fb.group({
-    type:d.type,
-    termfee:d.termfee,
-    tpaiddate:d.tpaiddate,
-    tremarks:d.tremarks
+    ...d
   }));
   
 });
@@ -249,10 +261,7 @@ setexistbus(bus:any):FormArray{
   const formarray = new FormArray([]);
   bus.forEach((d:any)=>{
     formarray.push(this.fb.group({
-      monthtype:d.monthtype,
-      monthfee:d.monthfee,
-      mpaiddate:d.mpaiddate,
-      mremarks:d.mremarks,
+      ...d
     }));
   });
   return formarray;
@@ -292,6 +301,9 @@ setexistbus(bus:any):FormArray{
     // this.dialogRef.close();
   }
 
+  test(index: any,feesType: string) {
+    console.log(index, feesType);
+  }
 
 
 }

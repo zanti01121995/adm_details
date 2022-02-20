@@ -89,7 +89,11 @@
             <div class="ui attached segment" >
               <div class="ui form" formArrayName="termfees" *ngFor="let hobby of schoolfee; let i = index">
                 <div class="fields" [formGroupName]="i" >
-                 
+                  
+                  <div class="four wide field" >
+                    
+                   <input type="checkbox" name="isChecked" (change)="test(i, 'termfess')">
+                  </div>
                   <div class="four wide field" >
                     <label [attr.for]="'type'+i" >Select Term</label>
                     <select required type="select" [id]="'type'+i" formControlName=type>
@@ -99,6 +103,8 @@
                       <option value="term3">Term3</option>
                     </select>
                   </div>
+
+
                   <div class="four wide field">
                     <label [attr.for]="'termfee'+i">Term Fees</label>
                     <input type="text" [id]="'termfee'+i" matInput placeholder="Enter Term Fees" formControlName = termfee>
@@ -131,6 +137,12 @@
             <div class="ui attached segment" >
               <div class="ui form" formArrayName=busfee *ngFor="let hobby of busfees; let i = index">
                 <div class="fields" [formGroupName]="i">
+
+                  <div class="four wide field" >
+                    
+                    <input type="checkbox"  >
+                   </div>
+
                   <div class="four wide field">
                     <label [attr.for]="'monthtype'+i">Select Select Month</label>
                     <select type="select" required [id]="'monthtype'+i" formControlName=monthtype>
