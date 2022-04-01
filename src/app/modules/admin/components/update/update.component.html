@@ -4,25 +4,29 @@
         
           <div style='text-align: center' class="ui attached segment">
            <h2> Student Fees Details Register  </h2>
+           
           </div>
           <div class="ui segments">
-            <h5 class="ui top attached header">
-            Student Details
-            </h5>
-            <div class="ui attached segment">
+            <span><h5 class="ui top attached header">
+              Student Details 
+              </h5></span> 
+              <mat-slide-toggle (change)="hide($event)" [formControl]="autoRenew"  #toggleBtn >Enable to edit</mat-slide-toggle>
+            <div   class="ui attached segment">
               <div class="ui form">
                 <div class="fields">
                   <div class="four wide field">
-                    <label>Student Name</label>
-                    <input type="text" matInput placeholder="Name" formControlName = name>
+                    <label>Student Id</label>
+                    <input type="text"  placeholder="id" [readOnly]= 'detailshide'  formControlName = studentid>
                   </div>
                   <div class="four wide field">
-                    <label>Student Id</label>
-                    <input type="text" matInput placeholder="id" formControlName = studentid>
+                    <label>Student Name</label>
+                    <input type="text"  placeholder="Name"  [readOnly]= 'detailshide'  formControlName = name>
+                   
                   </div>
                   <div class="four wide field">
                     <label>Standard</label>
-                    <select required type="select" placeholder="select" formControlName=standard>
+                    <input type="text"  placeholder="Select" *ngIf = 'detailshide'  [readOnly]= 'detailshide'  formControlName = standard>
+                    <select required type="select" *ngIf = !detailshide  placeholder="select" formControlName=standard>
                       <option value=""  hidden>Select the Class</option>
                       <option value="LKG">LKG</option>
                       <option value="UKG">UKG</option>
@@ -35,11 +39,11 @@
                   </div>
                   <div class="four wide field">
                     <label>Alloted Fees</label>
-                    <input type="text" matInput placeholder="Enter the amount to be alloted" formControlName = allotedfee>
+                    <input type="text" [readOnly]= 'detailshide' placeholder="Enter the amount to be alloted" formControlName = allotedfee>
                   </div>
                   <div class="four wide field">
                     <label>Balance Fees</label>
-                    <input type="text" matInput placeholder="Enter the Balance Amount" formControlName = balance>
+                    <input type="text" [readOnly]= 'detailshide' placeholder="Enter the Balance Amount" formControlName = balance  readOnly="readonly"/>
  
                   </div>
                   
@@ -49,7 +53,8 @@
                 <div class="fields">
                   <div class="four wide field">
                     <label>Trip type</label>
-                    <select required type="select" placeholder="select" formControlName = triptype>
+                    <input type="text"  placeholder="Select" *ngIf = 'detailshide'  [readOnly]= 'detailshide'  formControlName = triptype>
+                    <select required type="select" *ngIf = '!detailshide'  placeholder="select" formControlName = triptype>
                       <option value=""  hidden>Select the trip</option>
                       <option value="N/A">N/A</option>
                       <option value="Trip1">Trip1</option>
@@ -58,19 +63,19 @@
                   </div>
                   <div class="four wide field">
                     <label>Boarding Point</label>
-                    <input type="text" matInput placeholder="Enter the Boarding Point" formControlName = boardingpoint>
+                    <input type="text" [readOnly]= 'detailshide' placeholder="Enter the Boarding Point" formControlName = boardingpoint>
                   </div>
                   <div class="four wide field">
                     <label>Alloted Bus Fees</label>
-                    <input type="text" matInput placeholder="Enter the amount to be alloted" formControlName = allotedbusfee>
+                    <input type="text" [readOnly]= 'detailshide' placeholder="Enter the amount to be alloted" formControlName = allotedbusfee>
                   </div>
                   <div class="four wide field">
                     <label>Selected Extra -Curricular</label>
-                    <input type="text" matInput placeholder="Enter the Interest" formControlName = selectedECA>
+                    <input type="text" [readOnly]= 'detailshide'  placeholder="Enter the Interest" formControlName = selectedECA>
                   </div>
                   <div class="four wide field">
                     <label>Alloted ECA Fees</label>
-                    <input type="text" matInput placeholder="Enter the ECA Alloted Fees" formControlName = allotedECAfee>
+                    <input type="text" [readOnly]= 'detailshide'  placeholder="Enter the ECA Alloted Fees" formControlName = allotedECAfee>
                   </div>
                 </div>
               </div>
@@ -82,21 +87,19 @@
           
           <div class="ui segments">
             <h5 class="ui top attached header">
-              School Fees Payment Details<span id="add"> 
-               <button type="button" (click)="addschoolfee()" class="btn btn-sm btn-warning">Add terms Fees</button>
-           </span>
+              School Fees Payment Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" (click)="addschoolfee()" ><mat-icon style="font-size: medium;color: primary; border-color: blue;  border-radius: 50px;">add</mat-icon></a>
+               
             </h5> 
             <div class="ui attached segment" >
               <div class="ui form" formArrayName="termfees" *ngFor="let hobby of schoolfee; let i = index">
-                <div class="fields" [formGroupName]="i" >
-                  
-                  <div class="four wide field" >
-                    
-                   <input type="checkbox" name="isChecked" (change)="test(i, 'termfess')">
-                  </div>
+                <div class="fields"  [formGroupName]="i" >
+                 
+                  <button  type="button" name="mybutton" (click)="billcheck($event,i)" id='trig' >e</button>
+                 
                   <div class="four wide field" >
                     <label [attr.for]="'type'+i" >Select Term</label>
-                    <select required type="select" [id]="'type'+i" formControlName=type>
+                    <input type="text" placeholder="Select"  [id]="'typei'+i"  formControlName=type >
+                    <select required   *ngIf=!sh type="select" [id]="'type'+i" formControlName=type>
                       <option value=""  hidden>Select the term</option>
                       <option value="term1">Term1</option>
                       <option value="term2">Term2</option>
@@ -107,7 +110,7 @@
 
                   <div class="four wide field">
                     <label [attr.for]="'termfee'+i">Term Fees</label>
-                    <input type="text" [id]="'termfee'+i" matInput placeholder="Enter Term Fees" formControlName = termfee>
+                    <input type="text" [id]="'termfee'+i"  placeholder="Enter Term Fees" formControlName = termfee>
                   </div>
                   
                   <div class="four wide field">
@@ -116,36 +119,40 @@
                   </div>
                   <div class="four wide field">
                     <label [attr.for]="'tremarks'+i">Remarks</label>
-                    <input type="text"  matInput placeholder="Remarks" [id]="'tremarks'+i" formControlName = tremarks>
+                    <input type="text"   placeholder="Remarks" [id]="'tremarks'+i" formControlName = tremarks>
                   </div>
-                  <div class="four wide field">
-                    <label>Generate Bill</label>
-                    <button class="btn btn-sm btn-success"  (click)="termbillclick(i)">Show Bill</button>
+                  <div class="four wide field check">
+                    <!-- <label [attr.for]="'tremarks'+i">Bill ID</label> -->
+                    <!-- <input type="number"   placeholder="Remarks" [id]="'billno'+i" [(ngModel)]="val" formControlName = billno> -->
+                   
+                    <input  *ngIf=!hider type="number" placeholder="billno"  [id]="'billno'+i" name="text" value='' formControlName = billno>
+                    <!-- <button (click)="billcheck($event,i)">hide</button> -->
+                    <input type="checkbox" [id]="'termfees'+i" name="isChecked" (change)="termdetails($event,i)">
+                    <!-- <input type="text" [id]="'termfees'+i" formControlName = billno> -->
+                    <!-- <button class="btn btn-sm btn-success"  (click)="termbillclick(i)">Show Bill</button> -->
                   </div>
+                  
                 </div>
-         
+                <hr class="new1">
               </div>
             </div>
-        
+            
           </div>
           <div class="ui segments">
             <h5 class="ui top attached header">
-              Bus Fees Payment Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="add"> 
-               <button type="button" (click)="addbusfee()" class="btn btn-sm btn-warning">Add bus Fees</button>
-           </span>
+              Bus Fees Payment Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" (click)="addbusfee()" ><mat-icon style="font-size: medium;color: primary; border-color: blue;  border-radius: 50px;">add</mat-icon></a>
+               
             </h5> 
             <div class="ui attached segment" >
               <div class="ui form" formArrayName=busfee *ngFor="let hobby of busfees; let i = index">
                 <div class="fields" [formGroupName]="i">
 
-                  <div class="four wide field" >
-                    
-                    <input type="checkbox"  >
-                   </div>
-
+                 
+                  <button   type="button" name="mybutton" (click)="billcheck1($event,i)" id='trig1' >e</button>
                   <div class="four wide field">
                     <label [attr.for]="'monthtype'+i">Select Select Month</label>
-                    <select type="select" required [id]="'monthtype'+i" formControlName=monthtype>
+                    <input type="text" placeholder="Select"  [id]="'monthtypei'+i"  formControlName=monthtype >
+                    <select type="select" *ngIf=!sh required [id]="'monthtype'+i" formControlName=monthtype>
                       <option value=""  hidden>Select the month</option>
                       <option value="January">January</option>
                       <option value="Februry">Februry</option>
@@ -163,7 +170,7 @@
                   </div>
                   <div class="four wide field">
                     <label [attr.for]="'monthfee'+i">Monthly Fees Amount</label>
-                    <input type="text" [id]="'monthfee'+i" matInput placeholder="Enter Bus fees" formControlName = monthfee>
+                    <input type="text" [id]="'monthfee'+i"  placeholder="Enter Bus fees" formControlName = monthfee>
                   </div>
                   
                   <div class="four wide field">
@@ -173,28 +180,35 @@
         
                   <div class="four wide field">
                     <label [attr.for]="'mremarks'+i">Remarks</label>
-                    <input type="text" [id]="'mremarks'+i" matInput placeholder="Remarks" formControlName = mremarks>
+                    <input type="text" [id]="'mremarks'+i"  placeholder="Remarks" formControlName = mremarks>
                   </div>
-                  <div class="four wide field">
-                    <label>Generate Bill</label>
-                    <button class="btn btn-sm btn-success" (click)="busbillclick(i)">Show Bill</button>
+                  <div class="four wide field check">
+                    <input  type="number" placeholder="billno"  [id]="'bbillno'+i" name="text" value='' formControlName = billno>
+                    <input type="checkbox" [id]="'busfees'+i" name="isChecked" (change)="busdetails($event,i)">
+                    <!-- <button class="btn btn-sm btn-success" (click)="busbillclick(i)">Show Bill</button> -->
                   </div>
+                 
                 </div>
+                <hr class="new1">
               </div>
             </div>
         
           </div>
           <div class="ui segments">
             <h5 class="ui top attached header">
-              Others Fees Payment Details<span id="add"> 
-               <button type="button" (click)="otherfee()" class="btn btn-sm btn-warning">Add Other Fees</button>
-           </span>
+              Others Fees Payment Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" (click)="otherfee()" ><mat-icon style="font-size: medium;color: primary; border-color: blue;  border-radius: 50px;">add</mat-icon></a>
+              
             </h5> 
             <div class="ui attached segment" >
               <div class="ui form" formArrayName=otherfee *ngFor="let hobby of otherfees; let i = index">
                 <div class="fields" [formGroupName]="i" >
+                  
+                  <button   type="button" name="mybutton" (click)="billcheck2($event,i)" id='trig2' >e</button>
                   <div class="four wide field">
+            
                     <label [attr.for]="'omonthtype'+i">Select Select Month</label>
+                    <input type="text" placeholder="Select"  [id]="'omonthtypei'+i"  formControlName=omonthtype >
+                    
                     <select type="select" required [id]="'omonthtype'+i"  formControlName=omonthtype>
                       <option value=""  hidden>Select the month</option>
                       <option value="January">January</option>
@@ -213,7 +227,8 @@
                   </div>
                   <div class="four wide field">
                     <label [attr.for]="'omonthfee'+i">Monthly Fees</label>
-                    <input type="text" [id]="'omonthfee'+i"  matInput placeholder="Enter Term Fees" formControlName = omonthfee>
+                    
+                    <input type="text" [id]="'omonthfee'+i"  placeholder="Enter Term Fees" formControlName = omonthfee>
                   </div>
                   
                   <div class="four wide field">
@@ -222,21 +237,25 @@
                   </div>
                   <div class="four wide field">
                     <label [attr.for]="'oremarks'+i">Remarks</label>
-                    <input type="text" [id]="'oremarks'+i" matInput placeholder="Remarks" formControlName = oremarks>
+                    <input type="text" [id]="'oremarks'+i"  placeholder="Remarks" formControlName = oremarks>
                   </div>
-                  <div class="four wide field">
-                    <label>Generate Bill</label>
-                    <button class="btn btn-sm btn-success" (click)="otherbillclick(i)">Show Bill</button>
+                  <div  class="four wide field check">
+                    <input type="number" placeholder="billno"  [id]="'obillno'+i" name="text" value='' formControlName = billno>
+                    <input type="checkbox" [id]="'otherfees'+i" name="isChecked" (change)="otherdetails($event,i)">
+                    
                   </div>
+                 
                 </div>
+                <hr class="new1">
               </div>
             </div>
         
           </div>
         </div>
         <div class="button-row" style="padding:20px">
-          <button mat-raised-button color="primary"  (click)="postvalues()">Add</button>
+          <!-- <button mat-raised-button color="primary"  (click)="postvalues()">Add</button> -->
           <button mat-raised-button color="secondary" (click)="updatevalue()">Update</button>
+          <button class="btn btn-sm btn-success" (click)="billclick()">Show Bill</button>
           <button mat-raised-button color="warn" (click)="onClose()">Close</button>
         </div>
         </form>

@@ -87,12 +87,13 @@
       <div class="ui form">
         <div class="fields">
           <div class="four wide field">
-            <label>Student Name</label>
-            <input type="text" matInput placeholder="Name" formControlName = name>
+            <label>Student Id</label>
+            <input type="number" (focusout)="fill($event)" matInput id="studentid" placeholder="id" formControlName = studentid>
           </div>
           <div class="four wide field">
-            <label>Student Id</label>
-            <input type="text" matInput placeholder="id" formControlName = studentid>
+            <label>Student Name</label>
+            <input type="text" matInput placeholder="Name"  formControlName = name>
+           
           </div>
           <div class="four wide field">
             <label>Standard</label>
@@ -113,8 +114,8 @@
           </div>
           <div class="four wide field">
             <label>Balance Fees</label>
-            <!-- <input type="text" matInput placeholder="Enter the Balance Amount" formControlName = balance> -->
-            Balance to be showmn
+            <input type="text"  placeholder="Balance to be shown" formControlName = balance  readOnly="readonly"/>
+            
           </div>
           
         </div>
@@ -156,9 +157,7 @@
   
   <div class="ui segments">
     <h5 class="ui top attached header">
-      School Fees Payment Details<span id="add"> 
-       <button type="button" (click)="addschoolfee()" class="btn btn-sm btn-warning">Add terms Fees</button>
-   </span>
+      School Fees Payment Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" (click)="addschoolfee()" ><mat-icon style="font-size: medium;color: primary; border-color: blue;  border-radius: 50px;">add</mat-icon></a>
     </h5> 
     <div class="ui attached segment" >
       <div class="ui form" formArrayName="termfees" *ngFor="let hobby of schoolfee; let i = index">
@@ -185,11 +184,10 @@
           <div class="four wide field">
             <label [attr.for]="'tremarks'+i">Remarks</label>
             <input type="text"  matInput placeholder="Remarks" [id]="'tremarks'+i" formControlName = tremarks>
+            <input type="number" hidden  placeholder="billno" [id]="'billno'+i" formControlName = billno>
+
           </div>
-          <div class="four wide field">
-            <label>Generate Bill</label>
-            <button class="btn btn-sm btn-success" >Show Bill</button>
-          </div>
+         
         </div>
  
       </div>
@@ -198,9 +196,8 @@
   </div>
   <div class="ui segments">
     <h5 class="ui top attached header">
-      Bus Fees Payment Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="add"> 
-       <button type="button" (click)="addbusfee()" class="btn btn-sm btn-warning">Add bus Fees</button>
-   </span>
+      Bus Fees Payment Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" (click)="addbusfee()" ><mat-icon style="font-size: medium;color: primary; border-color: blue;  border-radius: 50px;">add</mat-icon></a>
+      
     </h5> 
     <div class="ui attached segment" >
       <div class="ui form" formArrayName=busfee *ngFor="let hobby of busfees; let i = index">
@@ -236,11 +233,9 @@
           <div class="four wide field">
             <label [attr.for]="'mremarks'+i">Remarks</label>
             <input type="text" [id]="'mremarks'+i" matInput placeholder="Remarks" formControlName = mremarks>
+            <input type="text" hidden  matInput placeholder="billno" [id]="'billno'+i" formControlName = billno>
           </div>
-          <div class="four wide field">
-            <label>Generate Bill</label>
-            <button class="btn btn-sm btn-success" >Show Bill</button>
-          </div>
+         
         </div>
       </div>
     </div>
@@ -248,9 +243,8 @@
   </div>
   <div class="ui segments">
     <h5 class="ui top attached header">
-      Others Fees Payment Details<span id="add"> 
-       <button type="button" (click)="otherfee()" class="btn btn-sm btn-warning">Add Other Fees</button>
-   </span>
+      Others Fees Payment Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" (click)="otherfee()" ><mat-icon style="font-size: medium;color: primary; border-color: blue;  border-radius: 50px;">add</mat-icon></a>
+      
     </h5> 
     <div class="ui attached segment" >
       <div class="ui form" formArrayName=otherfee *ngFor="let hobby of otherfees; let i = index">
@@ -285,11 +279,9 @@
           <div class="four wide field">
             <label [attr.for]="'oremarks'+i">Remarks</label>
             <input type="text" [id]="'oremarks'+i" matInput placeholder="Remarks" formControlName = oremarks>
+            <input type="text" hidden  matInput placeholder="billno" [id]="'billno'+i" formControlName = billno>
           </div>
-          <div class="four wide field">
-            <label>Generate Bill</label>
-            <button class="btn btn-sm btn-success" >Show Bill</button>
-          </div>
+         
         </div>
       </div>
     </div>
@@ -298,7 +290,7 @@
 </div>
 <div class="button-row" style="padding:20px">
   <button mat-raised-button color="primary" type="submit" (click)="postvalues()">Add</button>
-  <button mat-raised-button color="secondary" (click)="updatevalue()">Update</button>
+  <!-- <button mat-raised-button color="secondary" (click)="updatevalue()">Update</button> -->
   <button mat-raised-button color="warn" (click)="onClose()">Close</button>
 </div>
 </form>

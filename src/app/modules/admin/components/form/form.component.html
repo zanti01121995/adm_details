@@ -1,4 +1,4 @@
-<form [formGroup] = "api.admform" (ngSubmit)="onclick()">
+<form [formGroup] = "api.admform" >
     <div class="parent" >
         
          <div class="main-child">
@@ -7,16 +7,18 @@
         <p>
            * Please fill all the required details
        </p></div></div>
-       <input type="hidden" value=null formControlName="$key">
+       <input type="hidden" value=null formControlName="id">
+       <input type="hidden" formControlName="imagelink">
+       
        <div class="main-child2 name">
             <div id="heading">Student Name<span aria-label="Required">*</span></div>
        <table class="example-full-width" cellspacing="0"><tr>
         <td><mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>First name</mat-label>
+          <mat-label>Name</mat-label>
           <input type="text" formControlName='firstname' matInput>
         </mat-form-field></td>
-        <td><mat-form-field class="example-full-width" appearance="fill">
-          <mat-label> Last Name </mat-label>
+        <td><mat-form-field class="example-full-width lastname" appearance="fill">
+          <mat-label> Initial </mat-label>
           <input type="text" formControlName='lastname'  matInput>
         </mat-form-field></td>
       </tr></table></div>
@@ -30,7 +32,13 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
           </mat-form-field> -->
-          <mat-form-field   appearance="fill" style="padding-left: 10px" class="example-form-field">
+          <mat-form-field style="padding-left: 10px"  color="accent" appearance="fill">
+            <mat-label>DOB</mat-label>
+            <input matInput class="example-full-width" formControlName='DOB' [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <!-- <mat-form-field   appearance="fill" class="example-form-field">
             <mat-label>Choose a date</mat-label>
             <input matInput  formControlName='DOB' [matDatepicker]="datepicker">
             <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
@@ -40,7 +48,7 @@
                 <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
               </mat-datepicker-actions>
             </mat-datepicker>
-          </mat-form-field>
+          </mat-form-field> -->
     
          </div>
        <div class="main-child2 gender" style="height: 150px;"><div id="heading">Gender<span aria-label="Required">*</span></div>
@@ -54,47 +62,75 @@
        <div class="main-child2 blood"><div id="heading">Blood Group<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Type the Blood Group</mat-label>
-        <input type="text" formControlName="bloodgroup" matInput>
+        <mat-select type="select" formControlName="bloodgroup" [(value)]="selectedValue">
+          <mat-option value="A Positive">A+</mat-option>
+          <mat-option value="A Negative">A-</mat-option>
+          <mat-option value="B Positive">B+</mat-option>
+          <mat-option value="B Negative">B-</mat-option>
+          <mat-option value="AB Positive">AB+</mat-option>
+          <mat-option value="AB Negative">AB-</mat-option>
+          <mat-option value="O Negative">O+</mat-option>
+          <mat-option value="O Positive">O-</mat-option>
+          <mat-option value="Others">Others</mat-option>
+      </mat-select>
+        <!-- <input type="text" class="example-full-width" formControlName="bloodgroup" matInput> -->
       </mat-form-field></div>
-       <div class="main-child2 number1"><div id="heading">Student's Adhaar Number<span aria-label="Required">*</span></div>
+       <div class="main-child2 number1" ><div id="heading">Student's Adhaar Number<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Enter Student's Adhaar</mat-label>
-        <input type="number" formControlName="sadhaar" matInput>
-      </mat-form-field></div>
+        <input type="number" (focusout)="verifys($event)" class="example-full-width" formControlName="sadhaar" matInput/>
+        
+        
+        <!-- <button (click)="verifys()"></button> -->
+      </mat-form-field><span>
+     
+       
+        <mat-hint *ngIf="api.admform.controls['sadhaar']?.touched && Istrue"  style="color:red;">Invalid</mat-hint>
+        <mat-hint *ngIf="api.admform.controls['sadhaar']?.touched && !Istrue"  style="color:green;">Valid</mat-hint>
+      </span>
+    
+   
+  </div>
        <div class="main-child2 name"><div id="heading">Father's Name<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Enter Father's Name</mat-label>
-        <input type="text" formControlName="father" matInput>
+        <input type="text" class="example-full-width" formControlName="father" matInput>
       </mat-form-field>
     </div>
        <div class="main-child2 name"><div id="heading">Mother's Name<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Enter Mother's Name</mat-label>
-        <input type="text" formControlName="mother" matInput>
+        <input type="text" class="example-full-width" formControlName="mother" matInput>
       </mat-form-field>
     </div>
        <div class="main-child2 name"><div id="heading">Guardian's Name</div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Enter Guardian's Name</mat-label>
-        <input type="text" formControlName="guardian" matInput>
+        <input type="text" class="example-full-width" formControlName="guardian" matInput>
       </mat-form-field>
     </div>
        <div class="main-child2 number1"><div id="heading">Parent's/Guardian's Adhaar Number<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Enter Parent/Guardian's Adhaar</mat-label>
-        <input type="number" formControlName="padhaar" matInput>
-      </mat-form-field>
+        <input type="number" (focusout)="verifyp($event)"  class="example-full-width"   formControlName="padhaar" matInput/>
+        <!-- <button (click)="verifyp()"></button> -->
+      </mat-form-field><span>
+     
+       
+        <mat-hint *ngIf="api.admform.controls['padhaar']?.touched && Istrue2"  style="color:red;">Invalid</mat-hint>
+        <mat-hint *ngIf="api.admform.controls['padhaar']?.touched && !Istrue2"  style="color:green;">Valid</mat-hint>
+      </span>
     </div>
        <div class="main-child2 number2"><div id="heading">Contact Number(Parents)<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px" appearance="fill">
         <mat-label>Enter Contact No</mat-label>
-        <input type="number" formControlName="contact" matInput>
+        <input type="number" class="example-full-width" formControlName="contact" matInput>
       </mat-form-field>
     </div>
        <div class="main-child2 date" style="padding-left:10px" ><div id="heading">Date on Admission<span aria-label="Required">*</span></div>
        <mat-form-field color="accent" appearance="fill">
         <mat-label>DOA</mat-label>
-        <input matInput matInput formControlName='DOA' [matDatepicker]="picker1">
+        <input matInput class="example-full-width" formControlName='DOA' [matDatepicker]="picker1">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
@@ -105,7 +141,7 @@
        <div class="main-child2 mail"><div id="heading">Email<span aria-label="Required">*</span></div>
        <mat-form-field style="padding-left:10px ;" appearance="fill">
         <mat-label>Enter your email</mat-label>
-        <input  type="text" formControlName="email" matInput placeholder="pat@example.com"  required>
+        <input  type="text" formControlName="email" class="example-full-width" matInput placeholder="pat@example.com"  required>
     </mat-form-field>
         </div>
        <div class="main-child2 radio1" style="height: 300px"><div id="heading">Standard of Admission<span aria-label="Required">*</span></div>
@@ -150,51 +186,60 @@
        <div class="main-child2 text1"><div id="heading">Sub-Caste</div>
        <mat-form-field  style="padding-left: 10px;padding-bottom: 5px " appearance="fill">
         <mat-label>Input</mat-label>
-        <input type="select" formControlName="caste" matInput>
+        <input type="select" class="example-full-width" formControlName="caste" matInput>
       </mat-form-field>
     </div>
        <div class="main-child2 text2"><div id="heading">Address<span aria-label="Required">*</span></div>
        <mat-form-field style=" padding-left: 10px;" appearance="fill">
         <mat-label>Address</mat-label>
-        <textarea type="text" formControlName="address" matInput style="width:60%"></textarea>
+        <textarea type="text" class="example-full-width" formControlName="address" matInput style="width:60%"></textarea>
       </mat-form-field></div>
        <div class="main-child2 number3"><div id="heading">Pin code<span aria-label="Required">*</span></div>
        <mat-form-field  style="padding-left: 10px;padding-bottom: 5px; Height: 120px" appearance="fill">
         <mat-label>Enter Pin code</mat-label>
-        <input type="text" formControlName="pin" matInput>
+        <input type="number" class="example-full-width" formControlName="pin" matInput>
       </mat-form-field></div>
        <div class="main-child2 sports" style="Height: 110px"><div id="heading">If, Extra Curricular/Area of Spl. interest.</div>
        <mat-form-field  style="padding-left: 10px;padding-bottom: 5px " appearance="fill">
         <mat-label>Input</mat-label>
-        <input type="text" formControlName="extra" matInput>
+        <input type="text" class="example-full-width" formControlName="extra" matInput>
       </mat-form-field></div>
-      <div class="main-child2 number"><div id="heading">Generate Student ID<span aria-label="Required">*</span></div>
-      <mat-form-field  style="padding-left: 10px;padding-bottom: 5px " appearance="fill">
-       <mat-label>Input</mat-label>
-       <input type="text" formControlName="studid" matInput>
-     </mat-form-field></div>
-       <div class="main-child2 upload" style="Height: 120px"><div id="heading">Upload the Photo of the Student<span aria-label="Required">*</span></div>
+      <div class="main-child2 number">
+        <div id="heading">Generate Student ID<span aria-label="Required">*</span></div>
+      <!-- <mat-form-field  style="padding-left: 10px;padding-bottom: 5px " appearance="fill"> -->
+       <!-- <mat-label>Input</mat-label> -->
+       <input type="number" style="margin-right: 10px; " class="example-full-width" value=studentnum formControlName="studid"  class="ng-hide" readOnly="readonly"  /> 
+       <button mat-flat-button color="primary" style = "padding-right: 10px;" (click)="generateid()">Get ID
+      </button>
+     <!-- </mat-form-field> -->
+    </div>
+       <div class="main-child2 upload" style="Height: 120px">
+        <div id="heading">Upload the Photo of the Student<span aria-label="Required">*</span></div>
        <input (change)="upload($event)" accept="*.png.jpg" style = "padding-left: 10px; color: rgb(156, 75, 231);" class="ng-hide" id="input-file-id" multiple type="file" />
       <button mat-flat-button color="primary"(click)="uploadFile()">upload image
       </button>
       <div>{{ uploadPercent | async }}</div>
     <!-- <a  [href]="downloadURL | async" >{{ downloadURL | async }}</a> -->
-  
+   
       </div>
       
       <div class="example-button-row">
         
-          <button  mat-flat-button color="primary" type="submit" [disabled]="!this.api.admform.valid"   >Submit</button>
+          <button  mat-flat-button color="primary" (click)="onclick()" type="submit" [disabled]="!this.api.admform.valid"   >SAVE</button>
+          <!-- <button  mat-flat-button color="primary" (click)="api.updatestudent(api.admform.value,api.admform.value.id)" >Update</button> -->
           <!-- disabled="!admform.valid" -->
           <!-- (click)="poststudentdetails()" -->
-          <button mat-stroked-button color="warn">Clear</button>
+          <button mat-stroked-button color="warn" (click)="clear()">Clear</button>
         </div>
+        
+         
     </div>
-    
+   
     </form>  
-      
+    
        
-      
+         
+
     
     
     

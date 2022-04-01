@@ -1,8 +1,99 @@
-.tools{
-    flex:1 1;
-    
+
+.header{
+     position: sticky;
+     top: 0;
+     left: 0;
+     right:0;
+   
+     border-radius: 5px;
+   
+     box-shadow: 0 5px 10px rgb(103, 97, 109);
+     padding: 20px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     z-index: 50;
+   
 }
-// .nav{
-//     position:sticky;
-//     top: 0;
-// }
+.header .logo{
+font-weight: bolder;
+font-size: 25px;
+color: #333;
+}
+
+.header .nav-bar ul{
+    list-style: none;
+}
+.header .nav-bar ul li{
+    position: relative;
+    float: left;
+}
+.header .nav-bar ul li button{
+    font-size: 15px;
+    padding-left: 10px;
+    color:#fff
+}
+.header .nav-bar ul li ul{
+        position: absolute;
+        left: 0;
+        border-radius: 5px;
+        
+        top: 30px;
+        width: 120px;
+        background:  #3f51b5;
+}
+.header .nav-bar ul li ul li{
+    width: 80%;
+    left: 0;
+    border-top: .5px solid rgb(243, 236, 236);
+}
+.header .nav-bar ul li:focus-within > ul,header .nav-bar ul li:hover > ul{
+    display: initial;
+}
+.hov:hover + .hide {
+    display: block;
+    
+  }
+.hide{
+      display :none;
+  }
+
+#menu-bar{
+    display: none;
+}
+.header label{
+    display: none;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+  @media(max-width:991px){
+      .header{
+          padding: 20px;
+      }
+      .header label{
+        display: initial;    
+      }
+    
+      .header .nav-bar{
+          position: absolute;
+          background: rgb(96, 33, 243);;
+          top:100%;
+          left: 0;
+          right: 0;
+          border-top: .5px solid rgb(243, 236, 236);
+          display: none;
+      }
+      .header .nav-bar ul li{
+          width: 100%;
+      }
+     
+      .header .nav-bar ul li ul{
+          position: relative;
+          top:0;
+      }
+      #menu-bar:checked ~.nav-bar{
+          display: initial;
+      }
+  }

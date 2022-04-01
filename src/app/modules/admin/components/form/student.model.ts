@@ -1,7 +1,7 @@
 
 export class studentmodel{
 
-    $key:string='';
+    id:string='';
     firstname:string='';
     lastname:string='';
     DOB:any='';

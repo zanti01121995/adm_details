@@ -1,5 +1,5 @@
 export class schoolfee{
-    id:number=0;
+    id:string='';
     name:string = '';
     standard:string='';
     studentid:string ='';
@@ -31,4 +31,5 @@ export class schoolfee{
     totalBusFeesPaid: Number = 0;
     totalOtherFeesPaid: Number = 0;
     billvalues:[]=[];
+    billno:number=0;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { filter } from 'rxjs/operators';
 import { reduce } from 'rxjs/operators';
 import { schoolfee } from './schoolfee.model';
 import { FeesService } from 'src/app/services/fees.service'; 
@@ -8,6 +8,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ControlContainer, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { studentmodel } from '../form/student.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 
 @Component({
@@ -18,8 +20,11 @@ import { studentmodel } from '../form/student.model';
 export class SchoolfeeComponent implements OnInit {
   bal = 0;
   myobj:schoolfee =new schoolfee();
- 
-  constructor(public api:FeesService , private route:ActivatedRoute){}
+ list:any=[];
+ reqname!:any;
+ index=0;
+ isDisabled:boolean =true;
+  constructor(public api:FeesService ,private afs: AngularFirestore, private route:ActivatedRoute){}
   feesform:FormGroup = new FormGroup({
     name: new FormControl(''),
     studentid: new FormControl(''),
@@ -36,25 +41,33 @@ export class SchoolfeeComponent implements OnInit {
       type:new FormControl(''),
       termfee:new FormControl(''),
       tpaiddate:new FormControl(''),
-      tremarks:new FormControl('')
+      tremarks:new FormControl(''),
+      billno  :new FormControl()
 })]), 
     busfee:new FormArray([new FormGroup({
       monthtype:new FormControl(''),
       monthfee:new FormControl(''),
       mpaiddate:new FormControl(''),
-      mremarks:new FormControl('')
+      mremarks:new FormControl(''),
+      billno:new FormControl()
 })]),
     otherfee:new FormArray([new FormGroup({
       omonthtype:new FormControl(''),
       omonthfee:new FormControl(''),
       opaiddate:new FormControl(''),
-      oremarks:new FormControl('')
+      oremarks:new FormControl(''),
+      billno:new FormControl()
 })]),
         
     
 })
   // public dialogRef: MatDialogRef<Feestable1Component>
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.afs.collection<any>('items', ref =>ref).valueChanges({ idField: 'id' }).subscribe((data:any) => {
+      this.list = data
+      console.log(this.list)
+     })
+  }
   
   
 
@@ -70,24 +83,27 @@ export class SchoolfeeComponent implements OnInit {
     }
    
     addschoolfee() {
+      this.index=this.index+1;
       const control =  new FormGroup({
                     type:new FormControl(''),
                     termfee:new FormControl(''),
                     tpaiddate:new FormControl(''),
-                    tremarks:new FormControl('')
+                    tremarks:new FormControl(''),
+                    billno:new FormControl()
              });
       (<FormArray>this.feesform.get('termfees')).push(control);
 
     }
     
-
+    
 
     addbusfee(){
       const control1 =  new FormGroup({
                     monthtype:new FormControl(''),
                     monthfee:new FormControl(''),
                     mpaiddate:new FormControl(''),
-                    mremarks:new FormControl('')
+                    mremarks:new FormControl(''),
+                    billno:new FormControl()
              });
   
       (<FormArray>this.feesform.get('busfee')).push(control1);
@@ -97,7 +113,8 @@ export class SchoolfeeComponent implements OnInit {
                     omonthtype:new FormControl(''),
                     omonthfee:new FormControl(''),
                     opaiddate:new FormControl(''),
-                    oremarks:new FormControl('')
+                    oremarks:new FormControl(''),
+                    billno:new FormControl()
              });
       (<FormArray>this.feesform.get('otherfee')).push(control2);
     }
@@ -143,39 +160,53 @@ export class SchoolfeeComponent implements OnInit {
     this.myobj.balance2 = (amount2 *1)-totalBusFeesPaid;
     this.myobj.balance3 = (amount3 *1)-totalOtherFeesPaid;
 
-
-    this.api.sendvalue(this.myobj).subscribe(data=>{
-      console.log(data);
-    })
+    this.api.feesdetails.next(this.myobj)
+    this.api.addItem();
+   
    this.onClose();
    }
 
-   updatevalue(){
-    this.myobj = this.feesform.value;
-    this.api.editvalue(this.myobj,this.myobj.id).subscribe(data=>{
-      console.log(data)
-      alert("updated")
-    })
-    this.onClose();
-  }
-  initializeFormGroup(){
-    this.feesform.setValue({
-        name:'',
-        studentid:'',
-        standard:'',
-        allotedfee:'',
-        term1:'',
-        term2:'',
-        term3:'',
-        balance:''
-    })
-}
+  //  updatevalue(){
+  //   this.myobj = this.feesform.value;
+  //   this.api.editvalue(this.myobj,this.myobj.id).subscribe(data=>{
+  //     console.log(data)
+  //     alert("updated")
+  //   })
+  //   this.onClose();
+  // }
+//   initializeFormGroup(){
+//     this.feesform.setValue({
+//         name:'',
+//         studentid:'',
+//         standard:'',
+//         allotedfee:'',
+//         term1:'',
+//         term2:'',
+//         term3:'',
+//         balance:''
+//     })
+// }
   onClose() {
     this.feesform.reset();
-    this.initializeFormGroup();
+    // this.initializeFormGroup();
     // this.dialogRef.close();
   }
 
+fill(event:any){
+ 
+  var Idvalue:any = (<HTMLInputElement>document.getElementById('studentid')).value;
+  console.log(Idvalue)
+ 
+ let result;
+      const val = this.list||[];
+      console.log(val)
+     result = val.filter((element:any)=> {return element.studid*1 === Idvalue*1;
+     })
+      console.log(result)
+      
+      this.feesform.controls['name'].setValue(result[0].firstname);
+      this.feesform.controls['standard'].setValue(result[0].SOA);
 
+}
 
 }

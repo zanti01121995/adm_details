@@ -1,14 +1,36 @@
 
 
-    <mat-toolbar class="nav" color="primary">
+    <!-- <mat-toolbar class="nav" color="primary">
       <span>School Name</span>
       <div class="tools"></div>
         <button routerLink="./home" mat-button>Home</button>
       <button routerLink="./form" mat-button ><mat-icon>add</mat-icon>Admission</button>
       <button routerLink="./schoolfee" mat-button ><mat-icon>add</mat-icon>Register</button>
-      <!-- <button routerLink="./data" mat-button>Student details</button> -->
+  
       <button  mat-button (click)="onclick()">Logout</button>
 
-    </mat-toolbar>
+    </mat-toolbar> -->
 
+  <header>
+ <mat-toolbar  class="header" color="primary">
   
+   <a routerLink="./home" class="logo">Saavithri Vidyaalaya</a>
+   <input type="checkbox" id="menu-bar">
+   <label for="menu-bar">Menu</label>
+   <div class="nav-bar">
+     <ul>
+       <li><button routerLink="./home" mat-button>Home</button></li>
+       <li><button routerLink="./form" mat-button ><mat-icon>add</mat-icon>Admission</button></li>
+       <li><button routerLink="./schoolfee" mat-button ><mat-icon>add</mat-icon>Register</button></li>
+       <li><button  mat-button class="hov">Database </button>
+        <ul class="hide">
+          <li><button  routerLink="./data" mat-button >Admission</button></li>
+          <li><button routerLink="./feestable1" mat-button >Fees</button></li>
+        </ul>
+      </li>
+       <li><button  mat-button (click)="onclick()">Logout</button></li>
+     </ul>
+    </div>
+ 
+  </mat-toolbar> 
+</header>

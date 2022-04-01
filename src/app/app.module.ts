@@ -27,6 +27,11 @@ import { AuthService } from './services/auth.service';
 import { FeesService } from './services/fees.service';
 
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
+import { ToastrModule } from 'ngx-toastr';
+
+import { BillserveService } from './services/billserve.service';
+
 // import { AngularFirestore, AngularFirestoreModule  } from '@angular/fire/firestore';
 
 // import { SchoolfeeComponent } from './modules/admin/components/schoolfee/schoolfee.component';
@@ -38,6 +43,8 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/f
     ErrorComponent,
     ForgotComponent,
     DataTableComponent,
+
+  
     // DataTableComponent,
   ],
   imports: [
@@ -45,10 +52,12 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/f
     CommonModule,
     BrowserAnimationsModule,
     MaterialModule,
-
+    ToastrModule.forRoot(),
     ReactiveFormsModule,
     FontAwesomeModule,
     AppRoutingModule,
+    
+  
     // AngularFireModule.initializeApp(environment.firebaseConfig),
     // AngularFireStorageModule,
     // AngularFireDatabaseModule,
@@ -68,7 +77,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/f
     // MatSortModule
 
   ],
-  providers: [AuthService, AngularFirestore, FeesService, DatePipe],
+  providers: [AuthService, AngularFirestore, FeesService,BillserveService, DatePipe],
   bootstrap: [AppComponent],
   // entryComponents:[SchoolfeeComponent]
 

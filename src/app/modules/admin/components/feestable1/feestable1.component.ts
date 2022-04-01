@@ -46,7 +46,8 @@ export class Feestable1Component implements OnInit {
 
   }
   displayvalues() {
-    this.api.getvalue().subscribe({
+    this.api.getvalue();
+    this.api.sendapivalues.subscribe({
       next: (res) => {
 
         this.dataSource = new MatTableDataSource(res);
@@ -76,13 +77,13 @@ export class Feestable1Component implements OnInit {
   //   this.api.feesform.controls['balance'].setValue(dat.balance);
   // }
 
-  deletevalue(dat: any) {
-    this.api.removevalue(dat.id).subscribe(data => {
-      alert("deleted")
+  // deletevalue(dat: any) {
+  //   this.api.removevalue(dat.id).subscribe(data => {
+  //     alert("deleted")
 
-    })
+  //   })
 
-  }
+  // }
   
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

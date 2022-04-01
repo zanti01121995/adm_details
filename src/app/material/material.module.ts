@@ -17,7 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTabsModule} from '@angular/material/tabs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [],
@@ -40,7 +40,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSelectModule,
     MatCardModule,
     MatGridListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSlideToggleModule
   
     
     
@@ -63,8 +64,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSelectModule,
     MatCardModule,
     MatGridListModule,
-    MatTabsModule
-    
+    MatTabsModule,
+    MatSlideToggleModule
     
   ]
 })

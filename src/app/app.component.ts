@@ -46,8 +46,7 @@ export class AppComponent implements OnInit {
   getItem() {
     this.afs.
       collection<any>('items', ref =>
-        ref.where('name', '==', this.filterName)
-          .limit(2))
+        ref)
       .valueChanges({ idField: 'id' }).subscribe((data) => {
         console.log(data);
       }

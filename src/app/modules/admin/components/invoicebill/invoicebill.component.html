@@ -7,71 +7,87 @@
       <div class="invoice-sec-1-ref">
         <div class="ref-no">
          <strong><i>Savithri vidhyalaya Nursery & primary - Lalgudi</i></strong> 
-          <p><strong>Bill No #</strong></p>
+          <p><strong>Bill No : {{mydata[0].billno}}</strong></p>
+          <td></td>
         </div>
         <div class="to-invoice">
             <tr>
-                <td class="pull-right"><strong>Student Name #</strong></td>
-                <td>{{stud.name}}</td>
+                <p class="pull-right"><strong>Student Name : {{stud.name}} </strong></p>
+                
             </tr>
             <tr>
-                <td class="pull-right"><strong>Student ID #</strong></td>
-                <td>{{stud.studentid}}</td>
+                <p class="pull-right"><strong>Student ID : {{stud.studentid}}</strong></p>
+               
             </tr>
             <tr>
-                <td class="pull-right"><strong>Standard #</strong></td>
-                <td>{{stud.standard}}</td>
+                <p class="pull-right"><strong>Standard : {{stud.standard}}</strong></p>
+                
             </tr>
        
         </div>
       </div>
       <div class="invoice-sec-1-date">
-      <p>   <strong>Date:</strong>  <span>{{date}}</span></p>
+      <p>   <strong>Date:</strong>  <span>{{myDate}}</span></p>
       </div>
     </div>
     <div class="invoice-banner">
       <div class="banner-d">
         <p>Fees Patriculars</p>
-      </div>
+      </div>  
     </div>
-    <div class="invoice-table">
-      <div class="invoice-table-container">
+    <!-- <div class="invoice-table"> -->
+      <!-- <div class="invoice-table-container">
         <div class="invoice-table-data">
-          <div class="invoice-table-sl invoice-table-sl-h">
-            <strong> <p>Sl. No</p></strong>
-          </div>
-          <div class="invoice-table-desc invoice-table-desc-h">
-            <strong><p>Description</p></strong>
-          </div>
-          <div class="invoice-table-amount invoice-table-amount-h">
-            <strong><p>Amount</p></strong>
-          </div>
-        </div>
-        <div class="invoice-table-data">
-          <div class="invoice-table-sl">
-            <p>01</p>
-          </div>
-          <div class="invoice-table-desc">
-            <p>{{description}}</p>
-          </div>
-          <div class="invoice-table-amount">
-            <p>{{amount}}</p>
-          </div>
-        </div>
-        <div class="invoice-table-footer">
-          <div class="invoice-total">
-            <p>Total</p>
-          </div>
-          <div class="invoice-total-amount">
-            <p>{{amount}}</p>
-          </div>
-        </div>
-       
-      </div>
-    </div>
-    
-    <div class="invoice-greeting">
-      
-    </div>
-  </div>
+          <table >
+            <tr >
+                <th style="width: 100px;">S/No</th>
+                <th style="width: 450px;">Feestype</th>
+                <th style="width: 100px;">Amount</th>
+            </tr>
+            <tr *ngFor = "let dat of mydata">
+                <td *ngFor = "let col of index">
+                    {{dat[col]}}
+                </td>
+                
+            </tr>
+            <tr>
+              <td >Total</td>
+            </tr> -->
+            <!-- <tr *ngFor="let value of mydata.marks ">
+                <td *ngFor = "let col of index">
+                    {{value[col]}}
+                </td>
+            </tr> -->
+        <!-- </table> -->
+        <table class="table table-bordered ">
+					<thead>
+						<tr>
+                          <th>S/No</th>
+							<th>Feestype</th>
+                          <th>Month/Term</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody  class="css-serial" >
+					<tr *ngFor = "let dat of mydata"> 
+            <td>
+              
+            </td>
+						<td *ngFor = "let col of index"> {{dat[col]}}</td>
+						</tr>
+          </tbody>
+          </table>
+          <table class="table table-bordered ">
+
+         
+            <!-- <tr><td colspan="4"></td></tr> -->
+<tr>
+							<!-- <td colspan="3">&nbsp;</td> -->
+							<td><strong>Total</strong></td>
+							<td><strong>{{getTotalCost()}}</strong></td>
+						</tr>
+				
+			
+        </table>
+  <!-- </div> -->
   

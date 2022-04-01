@@ -1,8 +1,10 @@
 import {  Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {  MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 // import { DataTableDataSource, DataTableItem } from './data-table-datasource';
 
 import { AuthService } from 'src/app/services/auth.service';
@@ -52,23 +54,36 @@ import { AuthService } from 'src/app/services/auth.service';
 //   //   }
 //   // }
 // }
+
 export class DataTableComponent implements OnInit {
   displayedColumns: string[] = ['firstname','studid','DOB','Actions'];
   dataSource!: MatTableDataSource<any>;
-
+  filterName:any = [];
+  studentnum:any=[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private api:AuthService, private firebase:AngularFireDatabase) {}
+  constructor(private api:AuthService, private afs: AngularFirestore,private firebase:AngularFireDatabase,private router:Router) {}
 ngOnInit(): void {
   this.viewvalues()
 }
  viewvalues(){
-  this.firebase.list('students').valueChanges().subscribe({next:(res)=>{
-    this.dataSource = new MatTableDataSource(res);
+  this.afs.
+  collection<any>('items', ref =>
+    ref)
+  .valueChanges({ idField: 'id' }).subscribe((data) => {
+    this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }})
+    // data.forEach((e:any)=>this.filterName.push(e.studid*1))
+    // console.log(this.filterName);
+    // this.filterName.forEach((ele:any)=>this.studentnum.push(ele*1));
+    // console.log( this.studentnum)
+    // const largest = Math.max(...this.studentnum);
+    // console.log(largest)
+    // const NewAdm = largest+1;
+    // console.log(NewAdm)
+  })
  
  }
 
@@ -84,6 +99,8 @@ ngOnInit(): void {
     this.api.carddetails(row)
   }
   onedit(row:any){
-    this.api.update(row)
+    this.api.updateform.next(row)
+    // console.log(row)
+    this.router.navigate(['./admin/edit',row.id])
   }
 }

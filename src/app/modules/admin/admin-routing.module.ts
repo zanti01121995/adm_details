@@ -17,6 +17,7 @@ const routes: Routes = [
   {path:'',component: DashBoardComponent,
 children:[
   {path:'form',component:FormComponent},
+  {path:'edit/:id',component:FormComponent},
   {path:'home',component:HomeComponent},
   {path:'profile',component:ProCardComponent},
   {path:'data',component:DataTableComponent},

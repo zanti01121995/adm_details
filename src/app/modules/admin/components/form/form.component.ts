@@ -1,64 +1,130 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask} from "@angular/fire/compat/storage";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/compat/database";
-import { finalize, Observable } from 'rxjs';
+import { BehaviorSubject, finalize, Observable } from 'rxjs';
 import { studentmodel } from './student.model';
 
 import { async } from '@firebase/util';
 import { DatePipe } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
+import { ToastService } from 'src/app/services/toast.service';
+import { AbstractControl } from '@angular/forms';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
+
+
 export class FormComponent implements OnInit {
-  favoriteSeason: string = "";
+  // favoriteSeason: string = "";
  
- 
+  
+  readonly d = [
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
+    [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
+    [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
+    [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
+    [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
+    [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
+    [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
+    [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
+    [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+]
+
+// permutation table
+readonly p = [
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
+    [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
+    [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
+    [9, 4, 5, 3, 1, 2, 6, 8, 7, 0],
+    [4, 2, 8, 6, 5, 7, 3, 9, 0, 1],
+    [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
+    [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]
+]
+
+ studadhaar =new BehaviorSubject<boolean>(false);
+ parentsadhaar =new BehaviorSubject<boolean>(false);
+ Istrue!:boolean;
+ Istrue2!:boolean;
   // startDate = new Date(1990, 0, 1);
  selectedValue : string="";
  myvalue: string="";
+ student:studentmodel = new studentmodel();
+ filterName:any = [];
+ studentnum:any=[];
  
-
 
  task!:AngularFireUploadTask;
  uploadPercent!: Observable<any>;
   downloadURL!: Observable<string>;
   imagelink!:Observable<any>
   file!:any
-  
-
+ 
   detailsobject:studentmodel=new studentmodel();
   constructor( private storage: AngularFireStorage,
-    public api:AuthService) { }
+    public api:AuthService,private afs: AngularFirestore,private router:Router,private notifyService: ToastService) { }
  
   ngOnInit(): void {
-  this.api.sendlist();
-  this.api.updatevalue.subscribe(data=>{
-    // this.changevalue=data;
+  // this.api.sendlist();
+  this.api.updateform.subscribe(data=>{
+    
+     this.changevalue(data)
     console.log(data)
+  
+   
   })
+  this.studadhaar.subscribe(data=>{
+    this.Istrue=data;
+    
+   })
+   this.parentsadhaar.subscribe(data=>{
+    this.Istrue2=data;
+    
+   })
   }
   
   
    onclick(){
-    if(!this.api.admform.get('$key').value){
+    if(this.api.admform.value.id==null){
       console.log(this.api.admform.value);
     this.api.insertstudent(this.api.admform.value)
+    this.showToasterSuccess1();
     }
     else
     {
-      this.api.updatestudent(this.myvalue);
+      this.api.updatestudent(this.api.admform.value,this.api.admform.value.id);
+      this.showToasterSuccess2();
     }
     
-    // this.admform.reset()
+    this.api.admform.reset()
+    
+    // this.router.navigate(['./admin/data'])
+    }
+    clear(){
+      this.api.admform.reset()
     }
 upload(event:any){
  this.file =event.target.files[0];
 }
 
-
+showToasterSuccess1() {
+  this.notifyService.showSuccess(
+    'Admission Created Successfully !!',
+    'Savithri Vidyalaya'
+  );
+}
+showToasterSuccess2() {
+  this.notifyService.showSuccess(
+    'Updated Details Successfully !!',
+    'Savithri Vidyalaya'
+  );
+}
 uploadFile() {
   
   const filePath = "/files"+Math.random()+this.file;
@@ -92,9 +158,19 @@ uploadFile() {
   )  
  
  }
-// changevalue(dat:any){
-//    this.detailsobject.$key= this.changevalue.$key;
-//    this.detailsobject.firstname=this.changevalue.firstname;
+changevalue(dat:any){
+  console.log(dat.id)
+
+  this.api.admform.patchValue({...dat})
+
+  // if(dat.id==null){
+  //   this.api.onhide.next(true)
+  // }
+  // console.log(dat)
+  // this.feesform.controls['name'].setValue(dat.name);
+  // this.api.admform.controls['firstname'].setValue(dat.name);
+  // this.detailsobject.$key= this.changevalue.$key;
+  //  this.detailsobject.firstname=this.changevalue.firstname;
 // //    this.detailsobject.lastname=this.admform.value.lastname;
 // //    this.detailsobject.DOB=this.admform.value.DOB;
 // //   this.detailsobject.gender=this.admform.value.gender;
@@ -124,5 +200,72 @@ uploadFile() {
 //   })
 
 
+ }
+//  update(){
+//    this.student = this.api.admform.value;
+//    this.api.updatestudent(this.api.admform.value,this.api.admform.value.id).subscribe(data=>{
+//     console.log(data)
+   
+//     alert("updated")
+//   })
 //  }
+generateid(){
+  this.afs.
+  collection<any>('items', ref =>
+    ref)
+  .valueChanges({ idField: 'id' }).subscribe((data) => {
+    data.forEach((e:any)=>this.filterName.push(e.studid*1))
+    console.log(this.filterName);
+    this.filterName.forEach((ele:any)=>this.studentnum.push(ele*1));
+    console.log( this.studentnum)
+    const largest = Math.max(...this.studentnum);
+    console.log(largest)
+    const NewAdm = largest+1;
+    console.log(NewAdm)
+    this.api.admform.controls['studid'].setValue(NewAdm);
+  })
+
+}
+
+ 
+
+
+  
+
+  validate(aadharNumber:any) {
+    let c = 0
+    let invertedArray = aadharNumber.split('').map(Number).reverse()
+
+    invertedArray.forEach((val:any, i:any) => {
+        c = this.d[c][this.p[(i % 8)][val]]
+    })
+
+    return (c === 0)
+}
+  verifyp(event:any) {
+  
+    var x=this.api.admform.value.padhaar;
+    var aadharNo = x.toString()
+    console.log(typeof(aadharNo))
+    if(this.validate(aadharNo)) {
+      console.log('valid');
+    this.parentsadhaar.next(false);
+    } else {
+      console.log('invalid');
+      this.parentsadhaar.next(true);
+    }
+  }
+  verifys(event:any) {
+    var x=this.api.admform.value.sadhaar;
+    var aadharNo = x.toString()
+    console.log(typeof(aadharNo))
+    if(this.validate(aadharNo)) {
+     console.log('valid');
+     this.studadhaar.next(false);
+    } else {
+      console.log('invalid');
+      this.studadhaar.next(true);
+    }
+  }
+
 }

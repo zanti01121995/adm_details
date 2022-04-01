@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -7,7 +7,14 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { DatePipe } from '@angular/common';
 import { schoolfee } from '../modules/admin/components/schoolfee/schoolfee.model';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { verify } from 'crypto';
+
+
+
+let sadhaar!:any;
+
 
 
 @Injectable({
@@ -15,14 +22,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 
 
-export class AuthService {
+export class AuthService implements OnInit{
  
-  
+   filterName = 'zanti'
   datavalue=new BehaviorSubject<any>({})
   updatevalue=new BehaviorSubject<any>({})
+  onhide = new BehaviorSubject<boolean>(false);
+  updateform=new BehaviorSubject<any>({})
+  studadhaar = new BehaviorSubject<any>({});
+ 
   imageurl!:string
   studentlist!:AngularFireList<any>
-  
+  private itemsCollection: AngularFirestoreCollection<any>;
+  items: Observable<any[]>;
   update(row:any){
     console.log(row);
     this.updatevalue.next(row)
@@ -32,20 +44,28 @@ export class AuthService {
  
   this.datavalue.next(row)
 }
-  constructor(private router: Router,private firebase:AngularFireDatabase,private datePipe: DatePipe,private http:HttpClient) { }
+  constructor(private router: Router, private afs: AngularFirestore,private datePipe: DatePipe,private http:HttpClient) { 
+    this.itemsCollection = afs.collection<any>('items');
+    this.items = this.itemsCollection.valueChanges();
+  }
+  ngOnInit(): void {
+      this.studadhaar.subscribe(data=>{console.log(data)
+      sadhaar = data;
+      })
+  }
   admform:FormGroup= new FormGroup({
-    $key: new FormControl(null),
+    id: new FormControl(null),
     firstname: new FormControl('',[Validators.required,Validators.minLength(2), Validators.maxLength(20)]),
-    lastname: new FormControl('',[Validators.required,Validators.minLength(2), Validators.maxLength(20)]),
+    lastname: new FormControl('',[Validators.required,Validators.minLength(1), Validators.maxLength(20)]),
     DOB: new FormControl(''),
     gender: new FormControl(''), 
     bloodgroup: new FormControl(''),
     father: new FormControl('',[Validators.required,Validators.minLength(3), Validators.maxLength(20)]),
     mother: new FormControl('',[Validators.required,Validators.minLength(3), Validators.maxLength(20)]),
-    sadhaar: new FormControl('',[Validators.required,Validators.minLength(12), Validators.maxLength(12)]),
-    padhaar: new FormControl('',[Validators.required,Validators.minLength(12), Validators.maxLength(12)]),
+    sadhaar: new FormControl('',[Validators.required,Validators.min(100000000000), Validators.max(999999999999)]),
+    padhaar: new FormControl('',[Validators.required,Validators.min(100000000000), Validators.max(999999999999)]),
     guardian: new FormControl('',[Validators.required,Validators.minLength(3), Validators.maxLength(20)]),
-    contact: new FormControl('',[Validators.required,Validators.minLength(10), Validators.maxLength(10)]),
+    contact: new FormControl('',[Validators.required,Validators.min(1000000000), Validators.max(9999999999)]),
     email: new FormControl('',[Validators.email]),
     DOA: new FormControl(''),
     SOA: new FormControl(''),
@@ -62,14 +82,14 @@ export class AuthService {
   });
   
   
-  sendlist(){
-    this.studentlist=this.firebase.list('students');
-    return this.studentlist.snapshotChanges();
-  }
+  // sendlist(){
+  //   this.studentlist=this.firebase.list('students');
+  //   return this.studentlist.snapshotChanges();
+  // }
   
   insertstudent(students:any){
 
-    this.studentlist.push({
+    let item ={
     
     firstname:students.firstname,
     lastname:students.lastname,
@@ -94,11 +114,12 @@ export class AuthService {
     extra:students.extra,
     studid:students.studid,
     imagelink:students.imagelink=this.imageurl
-    });
-    
+    };
+    this.itemsCollection.add(item);
   }
-  updatestudent(students:any){
-    this.studentlist.update(students.$key,{
+  
+  updatestudent(students:any,docId: string){
+    this.afs.doc('items/'+docId).update({
     
       firstname:students.firstname,
       lastname:students.lastname,
@@ -124,7 +145,16 @@ export class AuthService {
       studid:students.studid,
       imagelink:students.imagelink=this.imageurl
       });
-
+  }
+  getItem() {
+    this.afs.
+      collection<any>('items', ref =>
+        ref.where('name', '==', this.filterName)
+          .limit(2))
+      .valueChanges({ idField: 'id' }).subscribe((data) => {
+        console.log(data);
+      }
+      );
   }
 
 
@@ -151,6 +181,16 @@ export class AuthService {
 
 
  
-
+  
 
 }
+
+
+
+function Aadharvalidation(control:AbstractControl):{[key:string]:any}|null{
+    console.log(sadhaar);
+  const aadhar= /invalid/.test(control.value);
+  return aadhar?{'aadharName':{value:control.value}}:null;
+  
+  }
+

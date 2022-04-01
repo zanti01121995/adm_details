@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-log-in',
@@ -12,7 +13,7 @@ import { AuthService } from '../services/auth.service';
 export class LogInComponent implements OnInit {
   loginform!:FormGroup
   faLock = faLock
-  constructor(private auth :AuthService,private router: Router) { }
+  constructor(private auth :AuthService,private router: Router,private notifyService: ToastService) { }
 
   ngOnInit(): void {
     this.loginform=new FormGroup({
@@ -25,6 +26,7 @@ onlogin(){
     this.auth.login(this.loginform.value).subscribe(
       (result) => {
         console.log(result);
+        this.showToasterSuccess()
         this.router.navigate(['admin']);
       },
       (err: Error) => {
@@ -32,5 +34,11 @@ onlogin(){
       }
     );
   }
+}
+showToasterSuccess() {
+  this.notifyService.showSuccess(
+    'Logged In Successfully !!',
+    'User'
+  );
 }
 }

@@ -5,6 +5,7 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { schoolfee } from '../modules/admin/components/schoolfee/schoolfee.model';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { studentmodel } from '../modules/admin/components/form/student.model';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 
 @Injectable({
@@ -13,15 +14,22 @@ import { studentmodel } from '../modules/admin/components/form/student.model';
 
 
 export class FeesService {
+  feespart!:any;
+  feespart1 !:any;
+  updatedvalues = new BehaviorSubject<any>({});
+  sendapivalues = new BehaviorSubject<any>({});
+  feesdetails= new BehaviorSubject<any>({});
   values = new BehaviorSubject<any>({});
   billvalues = new BehaviorSubject<any>({});
   term = new BehaviorSubject<boolean>(false);
   bus = new BehaviorSubject<boolean>(false);
   other = new BehaviorSubject<boolean>(false);
-
+  private feesCollection: AngularFirestoreCollection<any>;
+  feesdata: Observable<any[]>;
   commonBill = new BehaviorSubject<any>({});
- constructor(private http:HttpClient){
-
+  constructor(private afs: AngularFirestore) {
+    this.feesCollection = afs.collection<any>('feesdata');
+    this.feesdata = this.feesCollection.valueChanges();
   }
  
   // arrayvalue()
@@ -63,28 +71,50 @@ export class FeesService {
   // console.log(dat.otherfee)
   // this.x = dat.termfees;
 
+  addItem() {
+  this.feesdetails.subscribe(data=>{
+    this.feespart = data
+  })
+    this.feesCollection.add(this.feespart);
+  }
  
- 
+  updateItem(docId: string) {
+    this.updatedvalues.subscribe(data=>{
+     this.feespart1 = data;
+    })
+    // this.itemsCollection.add(item);
+    return this.afs.doc('feesdata/'+docId).update(this.feespart1);
+  }
+  
+  getvalue() {
+    this.afs.
+      collection<any>('feesdata', ref =>
+        ref)
+      .valueChanges({ idField: 'id' }).subscribe((data) => {
+        console.log(data);
+        this.sendapivalues.next(data);
+      }
+      );
+  }
+//  sendvalue(save:any){
+//    return this.afs.collection<schoolfee>('items')
+//    }
 
- sendvalue(save:any){
-   return this.http.post('http://localhost:3000/posts',save);
-   }
+  //  getvalue(){
+  //    return this.http.get<schoolfee[]>('http://localhost:3000/posts');
+  //    }
 
-   getvalue(){
-     return this.http.get<schoolfee[]>('http://localhost:3000/posts');
-     }
+  //    getvaluebyid(id:number){
+  //      return this.http.get<schoolfee>('http://localhost:3000/posts/'+id);
+  //    }
 
-     getvaluebyid(id:number){
-       return this.http.get<schoolfee>('http://localhost:3000/posts/'+id);
-     }
+  //  editvalue(save:any,id:number){
+  //    return this.http.put<any>('http://localhost:3000/posts/'+id,save)
+  //  }
 
-   editvalue(save:any,id:number){
-     return this.http.put<any>('http://localhost:3000/posts/'+id,save)
-   }
-
-   removevalue(id:any){
-     return this.http.delete<any>('http://localhost:3000/posts/'+id)
-   }
+  //  removevalue(id:any){
+  //    return this.http.delete<any>('http://localhost:3000/posts/'+id)
+  //  }
 
 
 }
